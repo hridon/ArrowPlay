@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace ArrowPlay
 {
     /// <summary>
-    /// 子弹配置表。
+    /// AI配置表。
     /// </summary>
-    public class DRBullet : DataRowBase
+    public class DRAI : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取子弹ID。
+        /// 获取AI编号。
         /// </summary>
         public override int Id
         {
@@ -37,9 +37,9 @@ namespace ArrowPlay
         }
 
         /// <summary>
-        /// 获取名字。
+        /// 获取步骤编号。
         /// </summary>
-        public string Name
+        public int OrderID
         {
             get;
             private set;
@@ -55,63 +55,63 @@ namespace ArrowPlay
         }
 
         /// <summary>
-        /// 获取飞行速度。
+        /// 获取持续时间。
         /// </summary>
-        public float FlySpeed
+        public float LastTime
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取飞行时间。
+        /// 获取触发条件。
         /// </summary>
-        public float FlyTime
+        public int Trriger
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取飞行曲线。
+        /// 获取移动速度。
         /// </summary>
-        public int FlyCurve
+        public float MoveSpeed
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取图片资源。
+        /// 获取移动方式。
         /// </summary>
-        public string PreferID
+        public int MoveType
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取特效资源。
+        /// 获取子弹ID。
         /// </summary>
-        public string Effect
+        public int BulletID
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取默认buff。
+        /// 获取发射类型。
         /// </summary>
-        public int DefaultBuff
+        public int ShootType
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取命中buff。
+        /// 获取子弹数量。
         /// </summary>
-        public int HitBuff
+        public int BulletNum
         {
             get;
             private set;
@@ -129,15 +129,15 @@ namespace ArrowPlay
             int index = 0;
             index++;
             m_Id = int.Parse(columnTexts[index++]);
-            Name = columnTexts[index++];
+            OrderID = int.Parse(columnTexts[index++]);
             Type = int.Parse(columnTexts[index++]);
-            FlySpeed = float.Parse(columnTexts[index++]);
-            FlyTime = float.Parse(columnTexts[index++]);
-            FlyCurve = int.Parse(columnTexts[index++]);
-            PreferID = columnTexts[index++];
-            Effect = columnTexts[index++];
-            DefaultBuff = int.Parse(columnTexts[index++]);
-            HitBuff = int.Parse(columnTexts[index++]);
+            LastTime = float.Parse(columnTexts[index++]);
+            Trriger = int.Parse(columnTexts[index++]);
+            MoveSpeed = float.Parse(columnTexts[index++]);
+            MoveType = int.Parse(columnTexts[index++]);
+            BulletID = int.Parse(columnTexts[index++]);
+            ShootType = int.Parse(columnTexts[index++]);
+            BulletNum = int.Parse(columnTexts[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -151,15 +151,15 @@ namespace ArrowPlay
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.ReadInt32();
-                    Name = binaryReader.ReadString();
+                    OrderID = binaryReader.ReadInt32();
                     Type = binaryReader.ReadInt32();
-                    FlySpeed = binaryReader.ReadSingle();
-                    FlyTime = binaryReader.ReadSingle();
-                    FlyCurve = binaryReader.ReadInt32();
-                    PreferID = binaryReader.ReadString();
-                    Effect = binaryReader.ReadString();
-                    DefaultBuff = binaryReader.ReadInt32();
-                    HitBuff = binaryReader.ReadInt32();
+                    LastTime = binaryReader.ReadSingle();
+                    Trriger = binaryReader.ReadInt32();
+                    MoveSpeed = binaryReader.ReadSingle();
+                    MoveType = binaryReader.ReadInt32();
+                    BulletID = binaryReader.ReadInt32();
+                    ShootType = binaryReader.ReadInt32();
+                    BulletNum = binaryReader.ReadInt32();
                 }
             }
 

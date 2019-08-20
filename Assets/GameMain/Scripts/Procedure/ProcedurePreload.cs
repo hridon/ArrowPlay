@@ -13,9 +13,9 @@ namespace ArrowPlay
         public static readonly string[] DataTableNames = new string[]
         {
             "UIForm",
-            //"Monster",
-            //"Bullet",
-            //"AI",
+            "Monster",
+            "Bullet",
+            "AI",
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();
