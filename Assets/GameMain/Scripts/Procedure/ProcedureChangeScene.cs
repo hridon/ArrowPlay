@@ -1,11 +1,4 @@
-﻿//------------------------------------------------------------
-// Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
-//------------------------------------------------------------
-
-using GameFramework.DataTable;
+﻿using GameFramework.DataTable;
 using GameFramework.Event;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
@@ -36,7 +29,7 @@ namespace ArrowPlay
                 GameEntry.Scene.UnloadScene(loadedSceneAssetNames[i]);
             }
 
-            GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(procedureOwner.GetData<VarString>(Constant.ProcedureData.NextSceneId)), 0, this);
+            GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(procedureOwner.GetData<VarString>(Constant.ProcedureData.NextSceneId).Value), 0, this);
         }
 
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
@@ -58,7 +51,14 @@ namespace ArrowPlay
                 return;
             }
 
-            ChangeState<ProcedureMain>(procedureOwner);
+            if (procedureOwner.GetData<VarString>(Constant.ProcedureData.NextSceneId).Value == "Main")
+            {
+                ChangeState<ProcedureMain>(procedureOwner);
+            }
+            else
+            {
+                ChangeState<ProcedureMenu>(procedureOwner);
+            }
         }
 
         private void OnLoadSceneSuccess(object sender, GameEventArgs e)

@@ -20,8 +20,10 @@ namespace ArrowPlay
             base.OnUpdate(procedureOwner,elapseSeconds ,realElapseSeconds);
 
             //设置切换场景
-            procedureOwner.SetData<VarString>(Constant.ProcedureData.NextSceneId, "Main");
-            ChangeState<ProcedureChangeScene>(procedureOwner);
+            //procedureOwner.SetData<VarString>(Constant.ProcedureData.NextSceneId, "Main");
+            //ChangeState<ProcedureChangeScene>(procedureOwner);
+
+            ChangeState<ProcedurePreload>(procedureOwner);
         }
 
     }

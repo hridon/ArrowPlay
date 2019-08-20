@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
@@ -10,11 +11,11 @@ namespace ArrowPlay
         private const float OnHoverAlpha = 0.7f;
         private const float OnClickAlpha = 0.6f;
 
-        [SerializeField]
-        private UnityEvent m_OnHover = null;
+        [NonSerialized]
+        public UnityEvent m_OnHover = null;
 
-        [SerializeField]
-        private UnityEvent m_OnClick = null;
+        [NonSerialized]
+        public UnityEvent m_OnClick = null;
 
         private CanvasGroup m_CanvasGroup = null;
 
@@ -37,7 +38,8 @@ namespace ArrowPlay
 
             StopAllCoroutines();
             StartCoroutine(m_CanvasGroup.FadeToAlpha(OnHoverAlpha, FadeTime));
-            m_OnHover.Invoke();
+            if (m_OnHover != null)
+                m_OnHover.Invoke();
         }
 
         public void OnPointerExit(PointerEventData eventData)
@@ -59,7 +61,8 @@ namespace ArrowPlay
             }
 
             m_CanvasGroup.alpha = OnClickAlpha;
-            m_OnClick.Invoke();
+            if (m_OnClick != null)
+                m_OnClick.Invoke();
         }
 
         public void OnPointerUp(PointerEventData eventData)
@@ -70,6 +73,16 @@ namespace ArrowPlay
             }
 
             m_CanvasGroup.alpha = OnHoverAlpha;
+        }
+
+        public static CommonButton Get(GameObject obj)
+        {
+            var commonButton = obj.GetComponent<CommonButton>();
+            if (!commonButton)
+            {
+                commonButton = obj.AddComponent<CommonButton>();
+            }
+            return commonButton;
         }
     }
 }

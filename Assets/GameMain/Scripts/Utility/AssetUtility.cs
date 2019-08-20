@@ -18,7 +18,7 @@ namespace ArrowPlay
 
         public static string GetUIFormAsset(string assetName)
         {
-            return Utility.Text.Format("Assets/GameMain/UI/UIForms/{0}.prefab", assetName);
+            return Utility.Text.Format("Assets/GameMain/Resources/UI/UIForms/{0}.prefab", assetName);
         }
     }
 }
