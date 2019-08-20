@@ -170,7 +170,13 @@ namespace ArrowPlay
     /// </summary>
     public partial class GameEntry:MonoBehaviour
     {
-        
+
+        public static UIComponent TestUI
+        {
+            get;
+            private set;
+        }
+
     }
 }
 
