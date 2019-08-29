@@ -16,6 +16,10 @@ namespace ArrowPlay
             "Monster",
             "Bullet",
             "AI",
+            "Weapon",
+            "EquipLevel",
+            "Equip",
+            "Skill"
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();

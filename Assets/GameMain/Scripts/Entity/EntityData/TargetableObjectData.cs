@@ -1,12 +1,6 @@
-﻿//------------------------------------------------------------
-// Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
-//------------------------------------------------------------
-
-using System;
+﻿using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace ArrowPlay
 {
@@ -19,11 +13,29 @@ namespace ArrowPlay
         [SerializeField]
         private int m_HP = 0;
 
-        public TargetableObjectData(int entityId, int typeId, CampType camp)
+        [SerializeField] private WeaponData m_WeaponData;
+
+        [SerializeField] private List<SkillData> m_SkillDatas;
+
+        public TargetableObjectData(int entityId, int typeId, CampType camp,int weaponId=0,List<int> skillDataIds=null)
             : base(entityId, typeId)
         {
             m_Camp = camp;
             m_HP = 0;
+
+            m_WeaponData=new WeaponData(Id,TypeId);
+
+            if (skillDataIds == null)
+            {
+                m_SkillDatas = null;
+                return;
+            }
+
+            m_SkillDatas=new List<SkillData>();
+            foreach (var skillId in skillDataIds)
+            {
+                m_SkillDatas.Add(new SkillData(Id, TypeId));
+            }
         }
 
         /// <summary>
@@ -68,6 +80,36 @@ namespace ArrowPlay
             get
             {
                 return MaxHP > 0 ? (float)HP / MaxHP : 0f;
+            }
+        }
+
+        /// <summary>
+        /// 武器信息
+        /// </summary>
+        public WeaponData WeaponData
+        {
+            get
+            {
+                return m_WeaponData;
+            }
+            set
+            {
+                m_WeaponData = value;
+            }
+        }
+
+        /// <summary>
+        /// 技能信息
+        /// </summary>
+        public List<SkillData> SkillDatas
+        {
+            get
+            {
+                return m_SkillDatas;
+            } 
+            set
+            {
+                m_SkillDatas = value;
             }
         }
     }

@@ -1,11 +1,4 @@
-﻿//------------------------------------------------------------
-// Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
-//------------------------------------------------------------
-
-using UnityEngine;
+﻿using UnityEngine;
 using UnityGameFramework.Runtime;
 
 namespace ArrowPlay
@@ -13,7 +6,7 @@ namespace ArrowPlay
     /// <summary>
     /// 玩家类
     /// </summary>
-    public class ArrowPlayer : Entity
+    public class ArrowPlayer : TargetableObject
     {
         [SerializeField]
         private ArrowPlayerData m_BulletData = null;
@@ -24,7 +17,7 @@ namespace ArrowPlay
 
         [SerializeField] private JoyNameType m_JoyNameType;
 
-        [SerializeField] private GameObject[] m_Monstars;
+        [SerializeField] private GameObject[] m_Monsters;
 
         [SerializeField]
         private HPBarItem m_HpBarItem;
@@ -32,8 +25,7 @@ namespace ArrowPlay
         [SerializeField]
         private SpineItem m_SpineItem;
 
-        public float MaxHp = 2000;
-
+        //public float MaxHp = 2000;
 
 #if UNITY_2017_3_OR_NEWER
         protected override void OnInit(object userData)
@@ -42,6 +34,18 @@ namespace ArrowPlay
 #endif
         {
             base.OnInit(userData);
+
+            m_EtcJoystick = FindObjectOfType<ETCJoystick>();
+
+            if (!m_CharacterController)
+                m_CharacterController = GetComponentInChildren<CharacterController>();
+
+            m_JoyNameType = JoyNameType.AttackJoy;
+
+            m_EtcJoystick.onMoveStart.AddListener(MoveStartEvent);
+            m_EtcJoystick.onMove.AddListener(MoveEvent);
+            m_EtcJoystick.onMoveEnd.AddListener(MoveEndEvent);
+
         }
 
 #if UNITY_2017_3_OR_NEWER
@@ -68,24 +72,42 @@ namespace ArrowPlay
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
 
+            if (IsDead)
+            {
+                GameEntry.Entity.HideEntity(this);
+            }
 
-            //CachedTransform.Translate(Vector3.forward * m_BulletData.MoveSpeed * elapseSeconds, Space.World);
+            if (m_JoyNameType == JoyNameType.AttackJoy)
+            {
+                GetNerMonstar();
+                if (nearMonstar ==null|| !nearMonstar.activeInHierarchy) return;
+                //转向就近敌方单位
+                m_CharacterController.transform.LookAt(nearMonstar.transform.position);
+
+                m_SpineItem.SetSpinePlayAnim(true, transform.eulerAngles.y);
+                //等待一秒发射子弹
+                if (waitTime > 0f)
+                {
+                    waitTime -= Time.deltaTime;
+                }
+                else
+                {
+                    //BulletManager.CreateBullet(m_CharacterController.transform.position, nearMonstar.transform.position,
+                    //    m_CharacterController.center.y,CampType.Player);
+                    waitTime = 0.5f;
+                }
+            }
+            else
+            {
+                waitTime = 0.5f;
+                m_SpineItem.SetSpinePlayAnim(false, transform.eulerAngles.y);
+            }
         }
 
-        void OnEnable()
+        protected override void OnHide(object userData)
         {
-            if (!m_CharacterController)
-                m_CharacterController = GetComponentInChildren<CharacterController>();
+            base.OnHide(userData);
 
-            m_JoyNameType = JoyNameType.AttackJoy;
-
-            m_EtcJoystick.onMoveStart.AddListener(MoveStartEvent);
-            m_EtcJoystick.onMove.AddListener(MoveEvent);
-            m_EtcJoystick.onMoveEnd.AddListener(MoveEndEvent);
-        }
-
-        void OnDisable()
-        {
             m_EtcJoystick.onMoveStart.RemoveListener(MoveStartEvent);
             m_EtcJoystick.onMove.RemoveListener(MoveEvent);
 
@@ -112,42 +134,13 @@ namespace ArrowPlay
             m_SpineItem.SetSpinePlayAnim(false, transform.eulerAngles.y);
         }
 
-        void Update()
-        {
-            if (m_JoyNameType == JoyNameType.AttackJoy)
-            {
-                GetNerMonstar();
-                if(!nearMonstar.activeInHierarchy)return;
-                //转向就近敌方单位
-                m_CharacterController.transform.LookAt(nearMonstar.transform.position);
-
-                m_SpineItem.SetSpinePlayAnim(true, transform.eulerAngles.y);
-                //等待一秒发射子弹
-                if (waitTime > 0f)
-                {
-                    waitTime -= Time.deltaTime;
-                }
-                else
-                {
-                    BulletManager.CreateBullet(m_CharacterController.transform.position, nearMonstar.transform.position,
-                        m_CharacterController.center.y,CampType.Player);
-                    waitTime = 0.5f;
-                }
-            }
-            else
-            {
-                waitTime = 0.5f;
-                m_SpineItem.SetSpinePlayAnim(false, transform.eulerAngles.y);
-            }
-        }
-
         private float waitTime = 0.5f;
         private GameObject nearMonstar;
         void GetNerMonstar()
         {
-            float distance = Vector3.Distance(m_Monstars[1].transform.position, this.m_CharacterController.transform.position);
-            nearMonstar = m_Monstars[1];
-            foreach (var monstar in m_Monstars)
+            float distance = 1000;//Vector3.Distance(m_Monsters[1].transform.position, this.m_CharacterController.transform.position);
+            nearMonstar = null;//m_Monsters[1];
+            foreach (var monstar in m_Monsters)
             {
                 float dis = Vector3.Distance(monstar.transform.position, this.m_CharacterController.transform.position);
                 if (distance > dis&&monstar.activeInHierarchy)
@@ -182,13 +175,18 @@ namespace ArrowPlay
                 BulletManager.RecycleBullet(bullet);
 
                 //扣血
-                m_HpBarItem.Init(this, 1000f, (MaxHp - 20));
-                MaxHp -= 20;
-                if (MaxHp <= 0)
+                m_HpBarItem.Init(this, 1000f, (m_BulletData.HP - 20));
+                m_BulletData.HP -= 20;
+                if (m_BulletData.HP <= 0)
                 {
                     gameObject.SetActive(false);
                 }
             }
+        }
+
+        public override ImpactData GetImpactData()
+        {
+            return new ImpactData();
         }
     }
 }

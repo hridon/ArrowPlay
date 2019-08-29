@@ -20,6 +20,11 @@ namespace ArrowPlay
         {
             return Utility.Text.Format("Assets/GameMain/Resources/UI/UIForms/{0}.prefab", assetName);
         }
+
+        public static string GetEntityAsst(string assetName)
+        {
+            return Utility.Text.Format("Assets/GameMain/Resources/Entities/{0}.prefab", assetName);
+        }
     }
 }
 

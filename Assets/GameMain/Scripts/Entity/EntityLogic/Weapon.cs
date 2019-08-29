@@ -40,7 +40,7 @@ namespace ArrowPlay
                 return;
             }
 
-            GameEntry.Entity.AttachEntity(Entity, m_WeaponData.OwnerId, AttachPoint);
+           //ameEntry.Entity.AttachEntity(Entity, m_WeaponData.OwnerId, AttachPoint);
         }
 
 #if UNITY_2017_3_OR_NEWER
@@ -62,11 +62,11 @@ namespace ArrowPlay
                 return;
             }
 
-            m_NextAttackTime = Time.time + m_WeaponData.AttackInterval;
-            GameEntry.Entity.ShowBullet(new BulletData(GameEntry.Entity.GenerateSerialId(), m_WeaponData.BulletId, m_WeaponData.OwnerId, m_WeaponData.OwnerCamp, m_WeaponData.Attack, m_WeaponData.BulletSpeed)
-            {
-                Position = CachedTransform.position,
-            });
+            //m_NextAttackTime = Time.time + m_WeaponData.AttackInterval;
+            //GameEntry.Entity.ShowBullet(new BulletData(GameEntry.Entity.GenerateSerialId(), m_WeaponData.BulletId, m_WeaponData.OwnerId, m_WeaponData.OwnerCamp, m_WeaponData.Attack, m_WeaponData.BulletSpeed)
+            //{
+            //    Position = CachedTransform.position,
+            //});
         }
     }
 }

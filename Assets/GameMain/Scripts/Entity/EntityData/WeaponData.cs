@@ -1,80 +1,107 @@
-﻿//------------------------------------------------------------
-// Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
-//------------------------------------------------------------
-
-using GameFramework.DataTable;
+﻿using GameFramework.DataTable;
 using System;
 using UnityEngine;
 
 namespace ArrowPlay
 {
     [Serializable]
-    public class WeaponData : AccessoryObjectData
+    public class WeaponData : EntityData
     {
         [SerializeField]
-        private int m_Attack = 0;
+        private WeaponType m_WeaponType = WeaponType.Unknown;
 
-        [SerializeField]
-        private float m_AttackInterval = 0f;
+        [SerializeField] private int m_Speed = 0;
 
-        [SerializeField]
-        private int m_BulletId = 0;
+        [SerializeField] private float m_ArriveTime = 0f;
 
-        [SerializeField] private float m_BulletSpeed = 0f;
+        [SerializeField] private string m_HitEffect="";
 
-        public WeaponData(int entityId, int typeId, int ownerId, CampType ownerCamp,int attack,float attackInterval,int bulletId,float bulletSpeed)
-            : base(entityId, typeId, ownerId, ownerCamp)
+        [SerializeField] private string m_HitSound = "";
+
+        [SerializeField] private int m_DefaultBuff=0;
+
+        public WeaponData(int entityId, int typeId)
+            : base(entityId, typeId)
         {
-            m_Attack = attack;
-            m_AttackInterval = attackInterval;
-            m_BulletId = bulletId;
-            m_BulletSpeed = bulletSpeed;
+            IDataTable<DRWeapon> dtWeapon = GameEntry.DataTable.GetDataTable<DRWeapon>();
+            DRWeapon drWeapon = dtWeapon.GetDataRow(TypeId);
+
+            if (drWeapon == null)
+            {
+                return;
+            }
+
+            m_WeaponType = (WeaponType)drWeapon.WeaponType;
+            m_Speed = drWeapon.Speed;
+            m_ArriveTime = drWeapon.ArriveTime;
+            m_HitEffect = drWeapon.HitEffect;
+            m_HitSound = drWeapon.HitSound;
+            m_DefaultBuff = drWeapon.DefaultBuff;
         }
 
         /// <summary>
-        /// 攻击力。
+        /// 武器类型
         /// </summary>
-        public int Attack
+        public WeaponType WeaponType
         {
             get
             {
-                return m_Attack;
+                return m_WeaponType;
             }
         }
 
         /// <summary>
-        /// 攻击间隔。
+        /// 攻击速度
         /// </summary>
-        public float AttackInterval
+        public float Speed
         {
             get
             {
-                return m_AttackInterval;
+                return m_Speed;
             }
         }
 
         /// <summary>
-        /// 子弹编号。
+        /// 子弹存活时间
         /// </summary>
-        public int BulletId
+        public float ArriveTime
         {
             get
             {
-                return m_BulletId;
+                return m_ArriveTime;
             }
         }
 
         /// <summary>
-        /// 子弹速度。
+        /// 碰撞特效
         /// </summary>
-        public float BulletSpeed
+        public string HitEffect
         {
             get
             {
-                return m_BulletSpeed;
+                return m_HitEffect;
+            }
+        }
+
+        /// <summary>
+        /// 碰撞音效
+        /// </summary>
+        public string HitSound
+        {
+            get
+            {
+                return m_HitSound;
+            }
+        }
+        
+        /// <summary>
+        /// 默认Buff
+        /// </summary>
+        public int DefaultBuff
+        {
+            get
+            {
+                return m_DefaultBuff;
             }
         }
     }
