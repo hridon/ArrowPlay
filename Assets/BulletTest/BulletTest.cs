@@ -14,7 +14,7 @@ public class BulletTest : MonoBehaviour
 
     void Start()
     {
-      transform.LookAt(Vector3.zero);
+        transform.LookAt(new Vector3(0, transform.localPosition.y, 0));
     }
 
     void Update()
@@ -35,9 +35,10 @@ public class BulletTest : MonoBehaviour
             {
                 ContactPoint point = other.contacts[0];
                 Vector3 curDir = transform.TransformDirection(Vector3.forward);
-                Vector3 nextDir = Vector3.Reflect(curDir, point.normal);
+                Vector3 normal = new Vector3(point.normal.x,0,point.normal.z);
+                Vector3 nextDir = Vector3.Reflect(curDir, normal);
                 transform.rotation = Quaternion.FromToRotation(Vector3.forward, nextDir);
-                transform.localPosition = point.point;
+                transform.localPosition = new Vector3(point.point.x, transform.localPosition.y, point.point.z); 
             }
         }
 
