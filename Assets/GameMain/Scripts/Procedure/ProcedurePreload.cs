@@ -16,6 +16,9 @@ namespace ArrowPlay
             "Monster",
             "Bullet",
             "AI",
+            "Chapter",
+            "Scene",
+            "Battle",
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();
@@ -69,7 +72,7 @@ namespace ArrowPlay
         private void LoadDataTable(string dataTableName)
         {
             m_LoadedFlag.Add(Utility.Text.Format("DataTable.{0}", dataTableName), false);
-            GameEntry.DataTable.LoadDataTable(dataTableName, LoadType.Bytes, this);
+            GameEntry.DataTable.LoadDataTable(dataTableName, LoadType.Bytes, this);//表格信息
         }
 
         private void OnLoadDataTableSuccess(object sender, GameEventArgs e)
