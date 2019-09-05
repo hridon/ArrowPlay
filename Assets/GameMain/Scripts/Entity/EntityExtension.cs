@@ -4,6 +4,15 @@ using UnityGameFramework.Runtime;
 
 namespace ArrowPlay
 {
+    public static class TableDataExtension
+    {
+        public static T GetTableData<T>(this int typeId) where T : IDataRow
+        {
+            IDataTable<T> dtData = GameEntry.DataTable.GetDataTable<T>();
+            return dtData.GetDataRow(typeId);
+        }
+    }
+
     public static class EntityExtension
     {
         // 关于 EntityId 的约定：
@@ -33,20 +42,22 @@ namespace ArrowPlay
             entityComponent.AttachEntity(entity.Entity, ownerId, parentTransformPath, userData);
         }
 
-        public static void ShowBullet(this EntityComponent entityCompoennt, BulletData data)
+        public static void ShowArrowPlay(this EntityComponent entityComponent, ArrowPlayerData data)
         {
-            entityCompoennt.ShowEntity(typeof(Bullet), "Bullet",0, data);
+            entityComponent.ShowEntity(data.Id, typeof(ArrowPlayer), AssetUtility.GetEntityAsst("ArrowPlayer"), "ArrowPlayer", 
+                 Constant.AssetPriority.ArrowPlayerAsset, data);
         }
 
-        private static void ShowEntity(this EntityComponent entityComponent, Type logicType, string entityGroup, int priority, EntityData data)
+        public static void ShowMonster(this EntityComponent entityComponent, MonsterData data)
         {
-            if (data == null)
-            {
-                Log.Warning("Data is invalid.");
-                return;
-            }
+            entityComponent.ShowEntity(data.Id, typeof(Monster), AssetUtility.GetEntityAsst("Monster1"),"Monster"
+                , Constant.AssetPriority.MonsterAsset, data);
+        }
 
-            entityComponent.ShowEntity(data.Id, logicType, "", entityGroup, priority, data);
+        public static void ShowBullet(this EntityComponent entityComponent, BulletData data)
+        {
+            entityComponent.ShowEntity(data.Id, typeof(Bullet), AssetUtility.GetEntityAsst("Bullet"), "Bullet"
+                , Constant.AssetPriority.BulletAsset, data);
         }
 
         public static int GenerateSerialId(this EntityComponent entityComponent)

@@ -1,10 +1,4 @@
 ﻿//------------------------------------------------------------
-// Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
-//------------------------------------------------------------
-
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,15 +8,7 @@ namespace ArrowPlay
     [Serializable]
     public class ArrowPlayerData : TargetableObjectData
     {
-
-        [SerializeField]
-        private List<WeaponData> m_WeaponDatas = new List<WeaponData>();
-
-        [SerializeField]
-        private int m_MaxHP = 0;
-
-        [SerializeField]
-        private int m_Defense = 0;
+        [SerializeField] private int m_MaxHP = 0;
 
         [SerializeField] private float m_AttackSpeed;
 
@@ -31,11 +17,10 @@ namespace ArrowPlay
         [SerializeField] private float m_MoveSpeed;
 
 
-        public ArrowPlayerData(int entityId, int typeId, CampType camp,int maxHp,int defense,float attackSpeed,float angularSpeed,float moveSpeed)
-            : base(entityId, typeId, camp)
+        public ArrowPlayerData(int entityId, int typeId, int maxHp, float attackSpeed, float angularSpeed, float moveSpeed, int weaponId, List<int> skillDataIds)
+            : base(entityId, typeId, CampType.Player, weaponId, skillDataIds)
         {
             HP = m_MaxHP = maxHp;
-            m_Defense = defense;
             m_AttackSpeed = attackSpeed;
             m_AngularSpeed = angularSpeed;
             m_MoveSpeed = moveSpeed;
@@ -49,17 +34,6 @@ namespace ArrowPlay
             get
             {
                 return m_MaxHP;
-            }
-        }
-
-        /// <summary>
-        /// 防御。
-        /// </summary>
-        public int Defense
-        {
-            get
-            {
-                return m_Defense;
             }
         }
 

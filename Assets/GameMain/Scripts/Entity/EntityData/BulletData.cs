@@ -1,11 +1,5 @@
-﻿//------------------------------------------------------------
-// Game Framework
-// Copyright © 2013-2019 Jiang Yin. All rights reserved.
-// Homepage: http://gameframework.cn/
-// Feedback: mailto:jiangyin@gameframework.cn
-//------------------------------------------------------------
-
-using System;
+﻿using System;
+using GameFramework.DataTable;
 using UnityEngine;
 
 namespace ArrowPlay
@@ -14,7 +8,7 @@ namespace ArrowPlay
     public class BulletData : EntityData
     {
         [SerializeField]
-        private int m_OwnerId = 0;
+        private Entity m_BulletOwner = null;
 
         [SerializeField]
         private CampType m_OwnerCamp = CampType.Unknown;
@@ -23,38 +17,59 @@ namespace ArrowPlay
         private int m_Attack = 0;
 
         [SerializeField]
-        private float m_Speed = 0f;
+        private string m_Name = "";
 
         [SerializeField]
-        private Vector3 m_TransmitPosition;
+        private int m_Type = 0;
 
+        [SerializeField]
+        private float m_Speed = 0f;
 
-        public BulletData(int entityId, int typeId, int ownerId, CampType campType, int attack, float speed)
+        public BulletData(int entityId, int typeId, Entity ownerId, CampType campType, int attack)
             : base(entityId, typeId)
         {
+            IDataTable<DRBullet> dtBullet = GameEntry.DataTable.GetDataTable<DRBullet>();
+            DRBullet drBullet = dtBullet.GetDataRow(TypeId);
+
+            if (drBullet == null)
+            {
+                return;
+            }
+
+            m_BulletOwner = ownerId;
             m_OwnerCamp = campType;
-            m_OwnerId = ownerId;
             m_Attack = attack;
-            m_Speed = speed;
+
+            m_Name = drBullet.Name;
+            m_Type = drBullet.Type;
+            m_Speed = drBullet.FlySpeed;
         }
 
-        public int OwnerId
+        /// <summary>
+        /// 子弹的发射实体
+        /// </summary>
+        public Entity OwnerId
         {
             get
             {
-                return m_OwnerId;
+                return m_BulletOwner; 
             }
         }
 
-
+        /// <summary>
+        /// 子弹伤害
+        /// </summary>
         public int Attack
         {
             get
             {
-                return m_Attack;
+                return m_Attack; 
             }
         }
 
+        /// <summary>
+        /// 子弹飞行速度
+        /// </summary>
         public float Speed
         {
             get
@@ -63,9 +78,15 @@ namespace ArrowPlay
             }
         }
 
+        /// <summary>
+        /// 子弹所属阵营
+        /// </summary>
         public CampType CameType
         {
-            get { return m_OwnerCamp; }
+            get
+            {
+                return m_OwnerCamp;
+            }
         }
     }
 }

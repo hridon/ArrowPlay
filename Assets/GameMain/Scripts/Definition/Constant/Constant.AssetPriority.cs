@@ -19,6 +19,8 @@
 
             public const int BulletAsset = 80;
             public const int EffectAsset = 80;
+            public const int ArrowPlayerAsset = 90;
+            public const int MonsterAsset = 90;
         }
     }
 }

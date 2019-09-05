@@ -146,6 +146,15 @@ namespace ArrowPlay
             private set;
         }
 
+        /// <summary>
+        /// log
+        /// </summary>
+        public static DebuggerComponent Debugger
+        {
+            get;
+            private set;
+        }
+
         private static void InitBuiltinComponents()
         {
             Base = UnityGameFramework.Runtime.GameEntry.GetComponent<BaseComponent>();

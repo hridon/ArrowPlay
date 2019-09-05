@@ -5,7 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2019-08-21 03:56:04.840
+// 生成时间：2019-08-29 04:24:00.586
 //------------------------------------------------------------
 
 using GameFramework;
@@ -48,7 +48,7 @@ namespace ArrowPlay
         /// <summary>
         /// 获取切片资源。
         /// </summary>
-        public int PreferID
+        public string PreferName
         {
             get;
             private set;
@@ -91,9 +91,9 @@ namespace ArrowPlay
         }
 
         /// <summary>
-        /// 获取子弹ID。
+        /// 获取武器ID。
         /// </summary>
-        public int BulletID
+        public int WeaponID
         {
             get;
             private set;
@@ -148,12 +148,12 @@ namespace ArrowPlay
             index++;
             m_Id = int.Parse(columnTexts[index++]);
             Name = columnTexts[index++];
-            PreferID = int.Parse(columnTexts[index++]);
+            PreferName = columnTexts[index++];
             AttackAction = columnTexts[index++];
             MoveAction = columnTexts[index++];
             IdleAction = columnTexts[index++];
             AIID = int.Parse(columnTexts[index++]);
-            BulletID = int.Parse(columnTexts[index++]);
+            WeaponID = int.Parse(columnTexts[index++]);
             BaseAttack = int.Parse(columnTexts[index++]);
             BaseHP = int.Parse(columnTexts[index++]);
             Scale = float.Parse(columnTexts[index++]);
@@ -172,12 +172,12 @@ namespace ArrowPlay
                 {
                     m_Id = binaryReader.ReadInt32();
                     Name = binaryReader.ReadString();
-                    PreferID = binaryReader.ReadInt32();
+                    PreferName = binaryReader.ReadString();
                     AttackAction = binaryReader.ReadString();
                     MoveAction = binaryReader.ReadString();
                     IdleAction = binaryReader.ReadString();
                     AIID = binaryReader.ReadInt32();
-                    BulletID = binaryReader.ReadInt32();
+                    WeaponID = binaryReader.ReadInt32();
                     BaseAttack = binaryReader.ReadInt32();
                     BaseHP = binaryReader.ReadInt32();
                     Scale = binaryReader.ReadSingle();
