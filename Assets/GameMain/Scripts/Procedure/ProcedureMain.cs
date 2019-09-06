@@ -47,8 +47,8 @@ namespace ArrowPlay
         {
             if (m_CurrentGame != null)
             {
-                m_CurrentGame = null;
                 m_CurrentGame.OnLeave();
+                m_CurrentGame = null;
             }
         }
     }

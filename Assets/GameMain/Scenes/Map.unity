@@ -1659,6 +1659,10 @@ Prefab:
       propertyPath: m_Name
       value: Monster2 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1000012609296128, guid: 07b1b117184866e4782233eb6e0d0cee, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07b1b117184866e4782233eb6e0d0cee, type: 2}
   m_IsPrefabAsset: 0
@@ -2848,7 +2852,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1180468137
 Transform:
   m_ObjectHideFlags: 0

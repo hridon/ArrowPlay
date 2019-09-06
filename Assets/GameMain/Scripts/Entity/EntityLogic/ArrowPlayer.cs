@@ -72,36 +72,36 @@ namespace ArrowPlay
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
 
-            if (IsDead)
-            {
-                GameEntry.Entity.HideEntity(this);
-            }
+            //if (IsDead)
+            //{
+            //    GameEntry.Entity.HideEntity(this);
+            //}
 
-            if (m_JoyNameType == JoyNameType.AttackJoy)
-            {
-                GetNerMonstar();
-                if (nearMonstar ==null|| !nearMonstar.activeInHierarchy) return;
-                //转向就近敌方单位
-                m_CharacterController.transform.LookAt(nearMonstar.transform.position);
+            //if (m_JoyNameType == JoyNameType.AttackJoy)
+            //{
+            //    GetNerMonstar();
+            //    if (nearMonstar ==null|| !nearMonstar.activeInHierarchy) return;
+            //    //转向就近敌方单位
+            //    m_CharacterController.transform.LookAt(nearMonstar.transform.position);
 
-                m_SpineItem.SetSpinePlayAnim(true, transform.eulerAngles.y);
-                //等待一秒发射子弹
-                if (waitTime > 0f)
-                {
-                    waitTime -= Time.deltaTime;
-                }
-                else
-                {
-                    //BulletManager.CreateBullet(m_CharacterController.transform.position, nearMonstar.transform.position,
-                    //    m_CharacterController.center.y,CampType.Player);
-                    waitTime = 0.5f;
-                }
-            }
-            else
-            {
-                waitTime = 0.5f;
-                m_SpineItem.SetSpinePlayAnim(false, transform.eulerAngles.y);
-            }
+            //    m_SpineItem.SetSpinePlayAnim(true, transform.eulerAngles.y);
+            //    //等待一秒发射子弹
+            //    if (waitTime > 0f)
+            //    {
+            //        waitTime -= Time.deltaTime;
+            //    }
+            //    else
+            //    {
+            //        //BulletManager.CreateBullet(m_CharacterController.transform.position, nearMonstar.transform.position,
+            //        //    m_CharacterController.center.y,CampType.Player);
+            //        waitTime = 0.5f;
+            //    }
+            //}
+            //else
+            //{
+            //    waitTime = 0.5f;
+            //    m_SpineItem.SetSpinePlayAnim(false, transform.eulerAngles.y);
+            //}
         }
 
         protected override void OnHide(object userData)
