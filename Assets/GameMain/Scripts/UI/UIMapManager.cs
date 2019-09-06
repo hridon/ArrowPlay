@@ -53,6 +53,8 @@ public class UIMapManager : MonoBehaviour
     [SerializeField]
     private int XmlID = 100;
 
+    private const float PLANEWIDHT = 11f;
+
     [ContextMenu("SetMap")]
     public void Awake()
     {
@@ -85,19 +87,19 @@ public class UIMapManager : MonoBehaviour
 
     private void SetBoxColliders()
     {
+        float curMapWidht = MapWidht * MapCanvasScaler.referenceResolution.y / MapHeight;
         float scaleChangeNum = MapCanvasScaler.referenceResolution.y / MapHeight;
         //设置地板的长宽 这里直接设定box的长宽
-        PlaneBoxCollider.transform.localScale = new Vector3(20f * scaleChangeNum, 0.001f,
-            20f * scaleChangeNum * (CenterImage.rectTransform.sizeDelta + TopImage.rectTransform.sizeDelta + DownImage.rectTransform.sizeDelta).y / MapWidht);
-        PlaneBoxCollider.transform.localPosition = new Vector3(0, -0.001f, 0);
+        PlaneBoxCollider.transform.localScale = new Vector3(PLANEWIDHT * scaleChangeNum, 0.001f,
+            PLANEWIDHT * scaleChangeNum * (CenterImage.rectTransform.sizeDelta + TopImage.rectTransform.sizeDelta + DownImage.rectTransform.sizeDelta).y / curMapWidht);
 
-        float zScale = CenterImage.rectTransform.sizeDelta.y * 20f / 640f;
+        float zScale = CenterImage.rectTransform.sizeDelta.y * PLANEWIDHT / 640f;
         //设置五面墙体的宽高
         WallBoxColliders[0].transform.localScale = new Vector3(1, 1, zScale);
-        WallBoxColliders[0].transform.localPosition = new Vector3(10,0,0);
+        WallBoxColliders[0].transform.localPosition = new Vector3(PLANEWIDHT/2f, 0, 0);
 
         WallBoxColliders[1].transform.localScale = new Vector3(1, 1, zScale);
-        WallBoxColliders[1].transform.localPosition = new Vector3(-10, 0, 0);
+        WallBoxColliders[1].transform.localPosition = new Vector3(-PLANEWIDHT/2f, 0, 0);
 
         WallBoxColliders[2].transform.localScale = new Vector3(1, 1, zScale/2f);
         WallBoxColliders[2].transform.localPosition = new Vector3(0, 0, zScale/2f);

@@ -171,6 +171,7 @@ namespace ArrowPlay
             Scene = UnityGameFramework.Runtime.GameEntry.GetComponent<SceneComponent>();
             Sound = UnityGameFramework.Runtime.GameEntry.GetComponent<SoundComponent>();
             UI = UnityGameFramework.Runtime.GameEntry.GetComponent<UIComponent>();
+            Debugger = UnityGameFramework.Runtime.GameEntry.GetComponent<DebuggerComponent>();
         }
     }
 

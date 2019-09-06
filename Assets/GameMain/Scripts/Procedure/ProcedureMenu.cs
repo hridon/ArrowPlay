@@ -1,6 +1,8 @@
-﻿using GameFramework.Event;
+﻿using System.Diagnostics;
+using GameFramework.Event;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
+using GameFramework;
 
 namespace ArrowPlay
 {
@@ -9,14 +11,18 @@ namespace ArrowPlay
         private bool m_StartGame = false;
         private MenuForm m_MenuForm = null;
 
+        private ProcedureOwner curProcedureFsm;
+
         public void StartGame()
         {
             m_StartGame = true;
+            curProcedureFsm.SetData<VarString>(Constant.ProcedureData.NextSceneId, "Map");
         }
 
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
+            curProcedureFsm = procedureOwner;
 
             GameEntry.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccess);
 
@@ -43,7 +49,7 @@ namespace ArrowPlay
 
             if (m_StartGame)
             {
-                procedureOwner.SetData<VarString>(Constant.ProcedureData.NextSceneId, "Main");
+                //procedureOwner.SetData<VarString>(Constant.ProcedureData.NextSceneId, "Main");
                 ChangeState<ProcedureChangeScene>(procedureOwner);
             }
         }
