@@ -1,5 +1,6 @@
 public enum JoyNameType
 {
 	MoveJoy,
-	AttackJoy
+	AttackJoy,
+    IdleJoy,
 }

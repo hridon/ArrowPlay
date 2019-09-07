@@ -18,7 +18,7 @@ TagManager:
   - Bullet
   - MapUI
   - NoView
-  - Joy
+  - JoyOrHp
   - Map
   - Player
   - 

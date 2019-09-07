@@ -65,6 +65,7 @@ namespace ArrowPlay
         protected virtual void OnDead(Entity attacker)
         {
             GameEntry.Entity.HideEntity(this);
+            UIHpBarManager.m_UIHpBarManager.OnClearnHPBar(this);
         }
 
         private void OnTriggerEnter(Collider other)

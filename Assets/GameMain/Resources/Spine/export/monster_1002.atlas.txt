@@ -1,0 +1,41 @@
+
+monster_1002.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+housou
+  rotate: false
+  xy: 2, 2
+  size: 38, 36
+  orig: 38, 36
+  offset: 0, 0
+  index: -1
+qianshou
+  rotate: false
+  xy: 267, 229
+  size: 48, 37
+  orig: 48, 37
+  offset: 0, 0
+  index: -1
+shenzi
+  rotate: false
+  xy: 2, 106
+  size: 263, 383
+  orig: 263, 383
+  offset: 0, 0
+  index: -1
+yinzi
+  rotate: false
+  xy: 2, 40
+  size: 181, 64
+  orig: 181, 64
+  offset: 0, 0
+  index: -1
+zuzi
+  rotate: false
+  xy: 267, 268
+  size: 236, 221
+  orig: 236, 221
+  offset: 0, 0
+  index: -1

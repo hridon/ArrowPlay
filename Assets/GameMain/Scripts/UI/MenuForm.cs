@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 using UnityGameFramework.Runtime;
 
 namespace ArrowPlay
@@ -33,6 +34,7 @@ namespace ArrowPlay
                 CommonButton.Get(m_StartGameButton).m_OnClick = unityEvent;
             }
         }
+
 
 #if UNITY_2017_3_OR_NEWER
         protected override void OnClose(object userData)

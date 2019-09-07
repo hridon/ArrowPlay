@@ -1,0 +1,69 @@
+
+monster_1005.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+qiqiu1
+  rotate: false
+  xy: 641, 415
+  size: 216, 92
+  orig: 216, 92
+  offset: 0, 0
+  index: -1
+qiqiu2
+  rotate: true
+  xy: 322, 284
+  size: 223, 317
+  orig: 223, 317
+  offset: 0, 0
+  index: -1
+qiqiu22
+  rotate: false
+  xy: 859, 449
+  size: 143, 58
+  orig: 143, 58
+  offset: 0, 0
+  index: -1
+qiqiu3
+  rotate: true
+  xy: 2, 81
+  size: 132, 260
+  orig: 132, 260
+  offset: 0, 0
+  index: -1
+qiqiu4
+  rotate: false
+  xy: 641, 308
+  size: 172, 105
+  orig: 172, 105
+  offset: 0, 0
+  index: -1
+qiqiu5
+  rotate: false
+  xy: 2, 215
+  size: 318, 292
+  orig: 318, 292
+  offset: 0, 0
+  index: -1
+qiqiu6
+  rotate: false
+  xy: 505, 235
+  size: 133, 47
+  orig: 133, 47
+  offset: 0, 0
+  index: -1
+qiqiu7
+  rotate: true
+  xy: 2, 2
+  size: 77, 157
+  orig: 77, 157
+  offset: 0, 0
+  index: -1
+yinzi
+  rotate: false
+  xy: 322, 218
+  size: 181, 64
+  orig: 181, 64
+  offset: 0, 0
+  index: -1

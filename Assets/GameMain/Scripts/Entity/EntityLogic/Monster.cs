@@ -109,8 +109,8 @@ namespace ArrowPlay
         //子弹碰撞到碰撞体消失
         private void OnTriggerEnter(Collider other)
         {
-            if (other)
-                Debug.Log(other.name + other.gameObject.layer);
+            //if (other)
+            //    Debug.Log(other.name + other.gameObject.layer);
 
             var bullet = other.GetComponent<Bullet>();
             if (bullet && bullet.BulletData.CameType != CampType.Enemy)
