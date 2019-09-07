@@ -45,12 +45,10 @@ namespace BehaviorDesigner.Runtime.Tasks.Basic.UnityAnimation
 
             if (string.IsNullOrEmpty(animationName.Value))
             {
-                animation.m_SkeletonAnimation.ClearState();
                 animation.SetMonsterAnim(animationName.Value, prevGameObject.transform.localEulerAngles.y, animationLoop.Value, animationSpeed.Value);
             }
             else
             {
-                animation.m_SkeletonAnimation.ClearState();
                 animation.SetMonsterAnim(animationName.Value, prevGameObject.transform.localEulerAngles.y, animationLoop.Value, animationSpeed.Value);
             }
 

@@ -56,7 +56,7 @@ namespace ArrowPlay
             m_IsRotation = false;
             if (angular > -45f && angular <= 45f)
             {
-                SetSpinePlayAnim(joyType==JoyNameType.IdleJoy?SpineAnimType.back_idle:(joyType==JoyNameType.AttackJoy? SpineAnimType.back_attack : SpineAnimType.back_move));
+                SetSpinePlayAnim(joyType == JoyNameType.IdleJoy ? SpineAnimType.back_idle : (joyType == JoyNameType.AttackJoy ? SpineAnimType.back_attack : SpineAnimType.back_move));
             }
             else if (angular>45f&&angular<=135f)
             {
@@ -99,9 +99,10 @@ namespace ArrowPlay
             m_SkeletonAnimation.timeScale = speed;
         }
 
+
         public void SetSpinePlayAnim(SpineAnimType animType, bool isLoop = true, float speed = 1f)
         {
-            SetSpinePlayAnim(animType.ToString(),isLoop,speed);
+            m_SkeletonAnimation.AnimationName = animType.ToString();
         }
 
     }

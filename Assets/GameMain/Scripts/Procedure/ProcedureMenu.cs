@@ -8,15 +8,13 @@ namespace ArrowPlay
 {
     public class ProcedureMenu : ProcedureBase
     {
-        private bool m_StartGame = false;
         private MenuForm m_MenuForm = null;
 
         private ProcedureOwner curProcedureFsm;
 
         public void StartGame()
         {
-            m_StartGame = true;
-            curProcedureFsm.SetData<VarString>(Constant.ProcedureData.NextSceneId, "Map");
+            GameData.Instance().GameState = true;
         }
 
         protected override void OnEnter(ProcedureOwner procedureOwner)
@@ -26,7 +24,6 @@ namespace ArrowPlay
 
             GameEntry.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccess);
 
-            m_StartGame = false;
             GameEntry.UI.OpenUIForm(UIFormId.MenuForm, this);
         }
 
@@ -47,9 +44,9 @@ namespace ArrowPlay
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
 
-            if (m_StartGame)
+            if (GameData.Instance().GameState)
             {
-                //procedureOwner.SetData<VarString>(Constant.ProcedureData.NextSceneId, "Main");
+                curProcedureFsm.SetData<VarString>(Constant.ProcedureData.NextSceneId, GameData.Instance().GetMapName());
                 ChangeState<ProcedureChangeScene>(procedureOwner);
             }
         }
