@@ -5,7 +5,7 @@ namespace ArrowPlay
 {
     public class CameraFollowCtrl : MonoBehaviour
     {
-        //public static CameraFollowCtrl Instance;
+        public static CameraFollowCtrl Instance;
 
         public static bool IsCameraFollow = true;
 
@@ -32,7 +32,7 @@ namespace ArrowPlay
         {
             //var designWidth = 640;
             //var designHeight = 1136;
-            //Instance = this;
+            Instance = this;
             //m_MainCamera.orthographicSize = m_MainCamera.orthographicSize * ((float)designWidth / (float)designHeight) / ((float)Screen.width / (float)Screen.height);
             //float x = Screen.width;
             //float y = Screen.height;

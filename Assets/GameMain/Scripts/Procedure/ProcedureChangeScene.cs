@@ -51,13 +51,12 @@ namespace ArrowPlay
                 return;
             }
 
-            if (procedureOwner.GetData<VarString>(Constant.ProcedureData.NextSceneId).Value == "Main")
-            {
-                ChangeState<ProcedureMain>(procedureOwner);
-            }
-            else
+            if (procedureOwner.GetData<VarString>(Constant.ProcedureData.NextSceneId).Value == "Menu")
             {
                 ChangeState<ProcedureMenu>(procedureOwner);
+            } else
+            {
+                ChangeState<ProcedureMain>(procedureOwner);
             }
         }
 

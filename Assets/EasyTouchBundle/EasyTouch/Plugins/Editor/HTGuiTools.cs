@@ -31,7 +31,7 @@ public class HTGuiTools{
 
 		GUILayout.BeginHorizontal();
 		GUILayout.Space(padding);
-		EditorGUILayout.BeginHorizontal("As TextArea", GUILayout.MinHeight(10f));
+        EditorGUILayout.BeginHorizontal("box", GUILayout.MinHeight(10f));
 		GUILayout.BeginVertical();
 		GUILayout.Space(2f);
 

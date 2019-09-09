@@ -1,26 +1,29 @@
-﻿using GameFramework.Event;
+﻿using System.Diagnostics;
+using GameFramework.Event;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
+using GameFramework;
 
 namespace ArrowPlay
 {
     public class ProcedureMenu : ProcedureBase
     {
-        private bool m_StartGame = false;
         private MenuForm m_MenuForm = null;
+
+        private ProcedureOwner curProcedureFsm;
 
         public void StartGame()
         {
-            m_StartGame = true;
+            GameData.Instance().GameState = true;
         }
 
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
+            curProcedureFsm = procedureOwner;
 
             GameEntry.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccess);
 
-            m_StartGame = false;
             GameEntry.UI.OpenUIForm(UIFormId.MenuForm, this);
         }
 
@@ -41,9 +44,9 @@ namespace ArrowPlay
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
 
-            if (m_StartGame)
+            if (GameData.Instance().GameState)
             {
-                procedureOwner.SetData<VarString>(Constant.ProcedureData.NextSceneId, "Main");
+                curProcedureFsm.SetData<VarString>(Constant.ProcedureData.NextSceneId, GameData.Instance().GetMapName());
                 ChangeState<ProcedureChangeScene>(procedureOwner);
             }
         }

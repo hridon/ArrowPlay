@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Spine;
+using Spine.Unity;
 using UnityEngine;
+using AnimationState = Spine.AnimationState;
 
 /// <summary>
 /// 反弹测试
@@ -41,6 +44,6 @@ public class BulletTest : MonoBehaviour
                 transform.localPosition = new Vector3(point.point.x, transform.localPosition.y, point.point.z); 
             }
         }
-
     }
+
 }

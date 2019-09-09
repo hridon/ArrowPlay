@@ -1,0 +1,55 @@
+
+monster_1004.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+jiao
+  rotate: false
+  xy: 547, 259
+  size: 46, 67
+  orig: 46, 67
+  offset: 0, 0
+  index: -1
+jiao1
+  rotate: false
+  xy: 547, 328
+  size: 167, 137
+  orig: 167, 137
+  offset: 0, 0
+  index: -1
+jiao2
+  rotate: true
+  xy: 314, 71
+  size: 117, 180
+  orig: 117, 180
+  offset: 0, 0
+  index: -1
+jiao3
+  rotate: false
+  xy: 2, 68
+  size: 310, 397
+  orig: 310, 397
+  offset: 0, 0
+  index: -1
+jiao4
+  rotate: false
+  xy: 314, 190
+  size: 231, 275
+  orig: 231, 275
+  offset: 0, 0
+  index: -1
+jiao5
+  rotate: false
+  xy: 716, 391
+  size: 33, 74
+  orig: 33, 74
+  offset: 0, 0
+  index: -1
+yinzi
+  rotate: false
+  xy: 2, 2
+  size: 181, 64
+  orig: 181, 64
+  offset: 0, 0
+  index: -1

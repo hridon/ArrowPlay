@@ -1,0 +1,83 @@
+
+monster_1001.png
+size: 512,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tree1
+  rotate: false
+  xy: 442, 42
+  size: 58, 48
+  orig: 58, 48
+  offset: 0, 0
+  index: -1
+tree10
+  rotate: false
+  xy: 449, 92
+  size: 61, 82
+  orig: 61, 82
+  offset: 0, 0
+  index: -1
+tree2
+  rotate: false
+  xy: 367, 27
+  size: 73, 63
+  orig: 73, 63
+  offset: 0, 0
+  index: -1
+tree3
+  rotate: false
+  xy: 184, 142
+  size: 160, 105
+  orig: 160, 105
+  offset: 0, 0
+  index: -1
+tree4
+  rotate: false
+  xy: 184, 2
+  size: 89, 38
+  orig: 89, 38
+  offset: 0, 0
+  index: -1
+tree5
+  rotate: false
+  xy: 184, 2
+  size: 89, 38
+  orig: 89, 38
+  offset: 0, 0
+  index: -1
+tree6
+  rotate: false
+  xy: 346, 176
+  size: 164, 71
+  orig: 164, 71
+  offset: 0, 0
+  index: -1
+tree7
+  rotate: false
+  xy: 367, 92
+  size: 80, 82
+  orig: 80, 82
+  offset: 0, 0
+  index: -1
+tree8
+  rotate: false
+  xy: 2, 16
+  size: 180, 231
+  orig: 180, 231
+  offset: 0, 0
+  index: -1
+tree9
+  rotate: false
+  xy: 184, 42
+  size: 173, 32
+  orig: 173, 32
+  offset: 0, 0
+  index: -1
+yinzi
+  rotate: false
+  xy: 184, 76
+  size: 181, 64
+  orig: 181, 64
+  offset: 0, 0
+  index: -1

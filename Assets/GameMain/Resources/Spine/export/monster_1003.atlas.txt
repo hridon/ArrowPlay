@@ -1,0 +1,62 @@
+
+monster_1003.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ht01
+  rotate: false
+  xy: 2, 167
+  size: 442, 343
+  orig: 442, 343
+  offset: 0, 0
+  index: -1
+ht02
+  rotate: false
+  xy: 446, 235
+  size: 298, 275
+  orig: 298, 275
+  offset: 0, 0
+  index: -1
+ht03
+  rotate: true
+  xy: 2, 2
+  size: 97, 116
+  orig: 97, 116
+  offset: 0, 0
+  index: -1
+ht04
+  rotate: false
+  xy: 446, 168
+  size: 55, 65
+  orig: 55, 65
+  offset: 0, 0
+  index: -1
+ht05
+  rotate: false
+  xy: 746, 445
+  size: 52, 65
+  orig: 52, 65
+  offset: 0, 0
+  index: -1
+ht06
+  rotate: false
+  xy: 185, 128
+  size: 28, 37
+  orig: 28, 37
+  offset: 0, 0
+  index: -1
+ht07
+  rotate: false
+  xy: 120, 66
+  size: 31, 33
+  orig: 31, 33
+  offset: 0, 0
+  index: -1
+yinzi
+  rotate: false
+  xy: 2, 101
+  size: 181, 64
+  orig: 181, 64
+  offset: 0, 0
+  index: -1
