@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace BehaviorDesigner.Runtime.Tasks.Basic.UnityAnimation
 {
-    [TaskCategory("Self/BHPlaySpineMonsterAnim")]
+    [TaskCategory("Self/BHTree")]
     [TaskDescription("Plays animation without any blending. Returns Success.")]
-    public class BHPlaySpineMonsterAnim : Action
+    public class BHPlaySpineAnim : Action
     {
         [Tooltip("The GameObject that the task operates on. If null the task GameObject is used.")]
         public SharedGameObject targetGameObject;
@@ -15,6 +15,8 @@ namespace BehaviorDesigner.Runtime.Tasks.Basic.UnityAnimation
         public SharedBool animationLoop;
         [Tooltip("The animation Speed")]
         public SharedFloat animationSpeed;
+        [Tooltip("The animation Speed")]
+        public SharedBool isMonsterSharedBool;
 
         // cache the animation component
         private SpineItem animation;
@@ -43,13 +45,21 @@ namespace BehaviorDesigner.Runtime.Tasks.Basic.UnityAnimation
                 return TaskStatus.Failure;
             }
 
-            if (string.IsNullOrEmpty(animationName.Value))
+            if (!isMonsterSharedBool.Value)
             {
-                animation.SetMonsterAnim(animationName.Value, prevGameObject.transform.localEulerAngles.y, animationLoop.Value, animationSpeed.Value);
+                animation.SetSpinePlayAnim(JoyNameType.AttackJoy, prevGameObject.transform.localEulerAngles.y, animationSpeed.Value);
             }
             else
             {
-                animation.SetMonsterAnim(animationName.Value, prevGameObject.transform.localEulerAngles.y, animationLoop.Value, animationSpeed.Value);
+
+                if (string.IsNullOrEmpty(animationName.Value))
+                {
+                    animation.SetMonsterAnim(animationName.Value, prevGameObject.transform.localEulerAngles.y, animationLoop.Value, animationSpeed.Value);
+                }
+                else
+                {
+                    animation.SetMonsterAnim(animationName.Value, prevGameObject.transform.localEulerAngles.y, animationLoop.Value, animationSpeed.Value);
+                }
             }
 
             return TaskStatus.Success;

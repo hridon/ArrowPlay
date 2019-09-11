@@ -24,7 +24,7 @@ namespace ArrowPlay
 
         [SerializeField] private float m_Speed = 2f;
 
-        public MonsterData(int entityId, int typeId,List<int> skillDataIds)
+        public MonsterData(int entityId, int typeId)
             : base(entityId, typeId, CampType.Enemy)
         {
             //表格中读取怪物信息数据  暂且所有的怪物属于敌方阵营
@@ -40,28 +40,6 @@ namespace ArrowPlay
             m_BaseAttack = drMonsters.BaseAttack;
             m_MaxHP = HP = drMonsters.BaseHP;
             m_Scale = drMonsters.Scale;
-
-            //添加武器信息
-            DRWeapon drWeapon = typeId.GetTableData<DRWeapon>();
-            if (drWeapon == null)
-            {
-                return;
-            }
-
-            base.WeaponData = new WeaponData(Id,TypeId);
-
-            if (skillDataIds == null)
-            {
-                base.SkillDatas = null;
-                return;
-            }
-
-            base.SkillDatas = new List<SkillData>();
-            foreach (var skillId in skillDataIds)
-            {
-                base.SkillDatas.Add(new SkillData(Id, TypeId));
-            }
-
         }
 
         public override int MaxHP

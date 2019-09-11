@@ -8,108 +8,58 @@ namespace ArrowPlay
     /// <summary>
     /// 实体类
     /// </summary>
-    public abstract class Entity : EntityLogic
+    public abstract class Entity : MonoBehaviour
     {
         [SerializeField]
         private EntityData m_EntityData = null;
+
+        /// <summary>
+        /// 获取实体。
+        /// </summary>
+        public Entity CurEntity
+        {
+            get
+            {
+                return GetComponent<Entity>();
+            }
+        }
 
         public int Id
         {
             get
             {
-                return Entity.Id;
+                return CurEntity.Id;
             }
         }
 
-        public Animation CachedAnimation
+        void Update()
         {
-            get;
-            private set;
+            OnUpdate(Time.deltaTime,Time.realtimeSinceStartup);
         }
 
-#if UNITY_2017_3_OR_NEWER
-        protected override void OnInit(object userData)
-#else
-        protected internal override void OnInit(object userData)
-#endif
+        void LateUpdate()
         {
-            base.OnInit(userData);
-            CachedAnimation = GetComponent<Animation>();
+            OnLateUpdate(Time.deltaTime, Time.realtimeSinceStartup);
         }
 
-#if UNITY_2017_3_OR_NEWER
-        protected override void OnShow(object userData)
-#else
-        protected internal override void OnShow(object userData)
-#endif
+        void OnDisabled()
         {
-            base.OnShow(userData);
-
-            m_EntityData = userData as EntityData;
-            if (m_EntityData == null)
-            {
-                Log.Error("Entity data is invalid.");
-                return;
-            }
-
-            Name = Utility.Text.Format("[Entity {0}]", Id.ToString());
-            //CachedTransform.localPosition = m_EntityData.Position;
-            //CachedTransform.localRotation = m_EntityData.Rotation;
-            CachedTransform.localScale = Vector3.one;
+            OnHide(m_EntityData);
         }
 
-#if UNITY_2017_3_OR_NEWER
-        protected override void OnHide(object userData)
-#else
-        protected internal override void OnHide(object userData)
-#endif
+        protected virtual void OnHide(object userData)
         {
-            base.OnHide(userData);
+
         }
 
-#if UNITY_2017_3_OR_NEWER
-        protected override void OnAttached(EntityLogic childEntity, Transform parentTransform, object userData)
-#else
-        protected internal override void OnAttached(EntityLogic childEntity, Transform parentTransform, object userData)
-#endif
+        protected virtual void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
-            base.OnAttached(childEntity, parentTransform, userData);
+
         }
 
-#if UNITY_2017_3_OR_NEWER
-        protected override void OnDetached(EntityLogic childEntity, object userData)
-#else
-        protected internal override void OnDetached(EntityLogic childEntity, object userData)
-#endif
+        protected virtual void OnLateUpdate(float elapseSeconds, float realElapseSeconds)
         {
-            base.OnDetached(childEntity, userData);
-        }
 
-#if UNITY_2017_3_OR_NEWER
-        protected override void OnAttachTo(EntityLogic parentEntity, Transform parentTransform, object userData)
-#else
-        protected internal override void OnAttachTo(EntityLogic parentEntity, Transform parentTransform, object userData)
-#endif
-        {
-            base.OnAttachTo(parentEntity, parentTransform, userData);
-        }
-
-#if UNITY_2017_3_OR_NEWER
-        protected override void OnDetachFrom(EntityLogic parentEntity, object userData)
-#else
-        protected internal override void OnDetachFrom(EntityLogic parentEntity, object userData)
-#endif
-        {
-            base.OnDetachFrom(parentEntity, userData);
-        }
-
-#if UNITY_2017_3_OR_NEWER
-        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
-#else
-        protected internal override void OnUpdate(float elapseSeconds, float realElapseSeconds)
-#endif
-        {
-            base.OnUpdate(elapseSeconds, realElapseSeconds);
         }
     }
 }

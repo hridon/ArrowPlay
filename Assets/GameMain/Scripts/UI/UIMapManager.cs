@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using ArrowPlay;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -9,8 +10,18 @@ using UnityEngine.UI;
 /// <summary>
 /// UIMap
 /// </summary>
-public class UIMapManager : MonoBehaviour 
+public class UIMapManager : MonoBehaviour
 {
+
+    public static UIMapManager Instance=null;
+
+    [SerializeField] 
+    private BulletManager m_BulletManager;
+    [SerializeField]
+    private MonsterManager m_MonsterManager;
+
+    [SerializeField] 
+    private PlayerManager m_PlayerManager;
     /// <summary>
     /// 地图高度
     /// </summary>
@@ -53,11 +64,36 @@ public class UIMapManager : MonoBehaviour
     [SerializeField]
     private int XmlID = 100;
 
+    [SerializeField] private CameraFollowCtrl m_CameraFollowCtrl;
+
+
     private const float PLANEWIDHT = 11f;
+
+    public CameraFollowCtrl CameraFollowCtrl
+    {
+        get { return m_CameraFollowCtrl; }
+    }
+
+    public BulletManager BulletManager
+    {
+        get { return m_BulletManager; }
+    }
+
+    public MonsterManager MonsterManager
+    {
+        get { return m_MonsterManager; }
+    }
+
+    public PlayerManager PlayerManager
+    {
+        get { return m_PlayerManager; }
+    }
 
     [ContextMenu("SetMap")]
     public void Awake()
     {
+        Instance = this;
+
         SetUIMap();
         SetMapCameraCanvasScaler();
         SetBoxColliders();
@@ -65,16 +101,18 @@ public class UIMapManager : MonoBehaviour
 
     private void SetUIMap()
     {
+        float ratio = (float) MapWidht / CenterImage.sprite.rect.width;
+        MapCanvasScaler.transform.localScale = Vector3.one * ratio;
         //设置中间位置宽高 位置
-        CenterImage.rectTransform.sizeDelta = new Vector2(MapWidht,CenterImage.sprite.rect.height * CenterImageNum*MapWidht/CenterImage.sprite.rect.width);
+        CenterImage.rectTransform.sizeDelta = new Vector2(MapWidht, CenterImage.sprite.rect.height * CenterImageNum * MapWidht / CenterImage.sprite.rect.width) / ratio;
         CenterImage.rectTransform.localPosition = Vector3.zero;
 
         //顶部
-        TopImage.rectTransform.sizeDelta = new Vector2(MapWidht, TopImage.sprite.rect.height * MapWidht / TopImage.sprite.rect.width);
+        TopImage.rectTransform.sizeDelta = new Vector2(MapWidht, TopImage.sprite.rect.height * MapWidht / TopImage.sprite.rect.width) / ratio;
         TopImage.rectTransform.localPosition = new Vector3(0, (TopImage.rectTransform.sizeDelta.y+CenterImage.rectTransform.sizeDelta.y)/2, 0);
 
         //底部
-        DownImage.rectTransform.sizeDelta = new Vector2(MapWidht,DownImage.sprite.rect.height*MapWidht / DownImage.sprite.rect.width);
+        DownImage.rectTransform.sizeDelta = new Vector2(MapWidht, DownImage.sprite.rect.height * MapWidht / DownImage.sprite.rect.width) / ratio;
         DownImage.rectTransform.localPosition = new Vector3(0, -(DownImage.rectTransform.sizeDelta.y + CenterImage.rectTransform.sizeDelta.y) / 2, 0);
     }
 

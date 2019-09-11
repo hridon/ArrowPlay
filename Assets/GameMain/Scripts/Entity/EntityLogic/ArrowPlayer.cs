@@ -22,67 +22,59 @@ namespace ArrowPlay
 
         [SerializeField]
         private SpineItem m_SpineItem;
+        [SerializeField]
+        private Weapon m_Weapon = null;
 
-        //public float MaxHp = 2000;
-
-#if UNITY_2017_3_OR_NEWER
-        protected override void OnInit(object userData)
-#else
-        protected internal override void OnInit(object userData)
-#endif
+        public JoyNameType JoyNameType
         {
-            base.OnInit(userData);
+            get { return m_JoyNameType; }
+        }
+
+        public void SetData(ArrowPlayerData arrowPlayerData)
+        {
+            base.SetData(arrowPlayerData);
+            OnInit(arrowPlayerData);
+        }
+
+        public void SetWeapon(WeaponData weaponData,SkillData skillData)
+        {
+            m_Weapon.SetData(weaponData, skillData);
+        }
+
+        protected void OnInit(object userData)
+        {
+            m_ArrowPlayerData = userData as ArrowPlayerData;
 
             m_EtcJoystick = FindObjectOfType<ETCJoystick>();
 
             if (!m_CharacterController)
                 m_CharacterController = GetComponentInChildren<CharacterController>();
 
-            m_JoyNameType = JoyNameType.IdleJoy;
+            m_JoyNameType = JoyNameType.MoveJoy;
 
             m_EtcJoystick.onMoveStart.AddListener(MoveStartEvent);
             m_EtcJoystick.onMove.AddListener(MoveEvent);
             m_EtcJoystick.onMoveEnd.AddListener(MoveEndEvent);
 
-            m_SpineItem = GetComponentInChildren<SpineItem>();
-        }
-
-#if UNITY_2017_3_OR_NEWER
-        protected override void OnShow(object userData)
-#else
-        protected internal override void OnShow(object userData)
-#endif
-        {
-            base.OnShow(userData);
-
-            m_ArrowPlayerData = userData as ArrowPlayerData;
-            if (m_ArrowPlayerData == null)
-            {
-                Log.Error("Bullet data is invalid.");
-                return;
-            }
-
+            m_SpineItem=GetComponentInChildren<SpineItem>();
+            m_Weapon = gameObject.AddComponent<Weapon>();
             //生成Hp
-           // UIHpBarManager.m_UIHpBarManager.ShowHPBar(this, m_ArrowPlayerData.HP, m_ArrowPlayerData.HPRatio);
-
-           CameraFollowCtrl.Instance.Self = this.transform;
+            UIHpBarManager.m_UIHpBarManager.ShowHPBar(this, m_ArrowPlayerData.HP, m_ArrowPlayerData.HPRatio);
         }
 
-#if UNITY_2017_3_OR_NEWER
+
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
-#else
-        protected internal override void OnUpdate(float elapseSeconds, float realElapseSeconds)
-#endif
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
 
             if (IsDead)
             {
-                GameEntry.Entity.HideEntity(this);
+                //GameEntry.CurEntity.HideEntity(this);
+                this.gameObject.SetActive(false);
             }
 
-            if (m_JoyNameType == JoyNameType.AttackJoy)
-            {
+            //if (m_JoyNameType == JoyNameType.AttackJoy)
+            //{
                 //GetNerMonstar();
                 //if (nearMonstar == null || !nearMonstar.activeInHierarchy) return;
                 ////转向就近敌方单位
@@ -101,12 +93,12 @@ namespace ArrowPlay
                     
                 //    waitTime = 0.5f;
                 //}
-            }
-            else
-            {
-                waitTime = 0.5f;
-                m_SpineItem.SetSpinePlayAnim(m_JoyNameType, transform.eulerAngles.y);
-            }
+            //}
+            //else
+            //{
+            //    waitTime = 0.5f;
+            //    m_SpineItem.SetSpinePlayAnim(m_JoyNameType, transform.eulerAngles.y);
+            //}
         }
 
         protected override void OnHide(object userData)

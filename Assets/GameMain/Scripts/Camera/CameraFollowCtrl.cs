@@ -28,11 +28,15 @@ namespace ArrowPlay
             }
         }
 
+        private void Awake()
+        {
+            Instance = this;
+        }
+
         private void Start()
         {
             //var designWidth = 640;
             //var designHeight = 1136;
-            Instance = this;
             //m_MainCamera.orthographicSize = m_MainCamera.orthographicSize * ((float)designWidth / (float)designHeight) / ((float)Screen.width / (float)Screen.height);
             //float x = Screen.width;
             //float y = Screen.height;
@@ -42,30 +46,13 @@ namespace ArrowPlay
         {
             if (true)
             {
-                if (IsRunning)
+                if (IsCameraFollow && m_Player != null)
                 {
-                    Update_Running();
+                    m_MainCamera.transform.position = new Vector3(m_MainCamera.transform.position.x, m_MainCamera.transform.position.y, m_Player.position.z);
+                    return;
                 }
             }
         }
-
-        private void Update_Running()
-        {
-            if (true)
-            {
-                Update_Runnings();
-            }
-        }
-
-        private void Update_Runnings()
-        {
-            if (IsCameraFollow && m_Player!=null)
-            {
-                m_MainCamera.transform.position = new Vector3(m_MainCamera.transform.position.x, m_MainCamera.transform.position.y, m_Player.position.z);
-                return;
-            }
-        }
-
     }
 }
 

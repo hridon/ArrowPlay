@@ -23,9 +23,14 @@ namespace ArrowPlay
 
         private List<HPBarItem> m_ActiveHPBarItems = null;
 
+        void Awake()
+        {
+             m_UIHpBarManager = this;
+        }
+
         void Start()
         {
-            m_UIHpBarManager = this;
+            m_ActiveHPBarItems=new List<HPBarItem>();
         }
 
         public void ShowHPBar(Entity entity, float fromHPRatio, float toHPRatio)

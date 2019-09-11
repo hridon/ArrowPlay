@@ -18,57 +18,20 @@ namespace ArrowPlay
 
         public void SetBulletData(BulletData bulletData)
         {
-            m_BulletData = bulletData;
+            OnInit(bulletData);
         }
 
-#if UNITY_2017_3_OR_NEWER
-        protected override void OnInit(object userData)
-#else
-        protected internal override void OnInit(object userData)
-#endif
+        protected void OnInit(object userData)
         {
-            base.OnInit(userData);
-        }
-
-#if UNITY_2017_3_OR_NEWER
-        protected override void OnShow(object userData)
-#else
-        protected internal override void OnShow(object userData)
-#endif
-        {
-            base.OnShow(userData);
-
             m_BulletData = userData as BulletData;
-            if (m_BulletData == null)
-            {
-                Log.Error("Bullet data is invalid.");
-                return;
-            }
         }
 
-#if UNITY_2017_3_OR_NEWER
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
-#else
-        protected internal override void OnUpdate(float elapseSeconds, float realElapseSeconds)
-#endif
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
 
-            CachedTransform.Translate(Vector3.forward * m_BulletData.Speed * elapseSeconds, Space.World);
-        }
-
-        public float aliveTime = 10f;
-
-        void OnEnable()
-        {
-            aliveTime = 10f;
-        }
-
-        public bool IsCanTrigger=false;
-        void Update()
-        {
             if (!IsCanTrigger) return;
-            if (m_BulletData==null)return;
+            if (m_BulletData == null) return;
 
             if (aliveTime > 0)
             {
@@ -81,6 +44,16 @@ namespace ArrowPlay
                 BulletManager.RecycleBullet(this);
             }
         }
+
+        public float aliveTime = 10f;
+
+        void OnEnable()
+        {
+            aliveTime = 10f;
+        }
+
+        public bool IsCanTrigger=false;
+
 
         private BulletManager m_BulletManager;
 
@@ -100,7 +73,7 @@ namespace ArrowPlay
             if (other)
                 Debug.Log(other.name + other.gameObject.layer);
 
-            if (LayerMask.LayerToName( other.gameObject.layer)=="Box")
+            if (LayerMask.LayerToName(other.gameObject.layer) == "Box" || LayerMask.LayerToName(other.gameObject.layer) == "NoView")
             {
                 BulletManager.RecycleBullet(this);
             }

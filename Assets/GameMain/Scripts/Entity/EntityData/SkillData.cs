@@ -6,7 +6,7 @@ using UnityEngine;
 namespace ArrowPlay
 {
     [Serializable]
-    public class SkillData :EntityData
+    public class SkillData
     {
         [SerializeField] private string m_SkillName;
 
@@ -18,10 +18,9 @@ namespace ArrowPlay
 
         [SerializeField] private float m_SkillNum2 = 0;
 
-        public SkillData(int entityId, int typeId)
-            :base(entityId,typeId)
+        public SkillData(int typeId)
         {
-            DRSkill drSkill = TypeId.GetTableData<DRSkill>();
+            DRSkill drSkill = typeId.GetTableData<DRSkill>();
 
             if (drSkill == null)
             {

@@ -6,49 +6,37 @@ namespace ArrowPlay
     /// <summary>
     /// 怪物类
     /// </summary>
-    public class Monster : Entity
+    public class Monster : TargetableObject
     {
         [SerializeField]
-        private MonsterData m_BulletData = null;
+        private MonsterData m_MonsterData = null;
 
-        [SerializeField] private HPBarItem m_HpBarItem;
+        [SerializeField]
+        private Weapon m_Weapon = null;
 
-        public float MaxHp = 1000;
-
-#if UNITY_2017_3_OR_NEWER
-        protected override void OnInit(object userData)
-#else
-        protected internal override void OnInit(object userData)
-#endif
+        public void SetData(MonsterData monsterData)
         {
-            base.OnInit(userData);
+            base.SetData(monsterData);
+            OnInit(monsterData);
         }
 
-#if UNITY_2017_3_OR_NEWER
-        protected override void OnShow(object userData)
-#else
-        protected internal override void OnShow(object userData)
-#endif
+        public void SetWeapon(WeaponData weaponData, SkillData skillData)
         {
-            base.OnShow(userData);
-
-            m_BulletData = userData as MonsterData;
-            if (m_BulletData == null)
-            {
-                Log.Error("Bullet data is invalid.");
-                return;
-            }
+            m_Weapon.SetData(weaponData, skillData);
         }
 
-#if UNITY_2017_3_OR_NEWER
-        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
-#else
-        protected internal override void OnUpdate(float elapseSeconds, float realElapseSeconds)
-#endif
+        protected void OnInit(object userData)
         {
-            base.OnUpdate(elapseSeconds, realElapseSeconds);
+            m_MonsterData = userData as MonsterData;
+            //血量设置
+            UIHpBarManager.m_UIHpBarManager.ShowHPBar(this, 1000, 1000);
+            //
+            m_Weapon = gameObject.AddComponent<Weapon>();
+        }
 
-            CachedTransform.Translate(Vector3.forward * m_BulletData.Speed * elapseSeconds, Space.World);
+        public override ImpactData GetImpactData()
+        {
+            return new ImpactData();
         }
 
         private ArrowPlayer m_ArrowPlayer;
@@ -64,67 +52,67 @@ namespace ArrowPlay
         }
 
 
-        private BulletManager m_BulletManager;
+        //private BulletManager m_BulletManager;
 
-        BulletManager BulletManager
-        {
-            get
-            {
-                if (m_BulletManager == null)
-                    m_BulletManager = FindObjectOfType<BulletManager>();
-                return m_BulletManager;
-            }
-        }
+        //BulletManager BulletManager
+        //{
+        //    get
+        //    {
+        //        if (m_BulletManager == null)
+        //            m_BulletManager = FindObjectOfType<BulletManager>();
+        //        return m_BulletManager;
+        //    }
+        //}
 
-        public bool isCanCreateBullet = false;
-        private float waitTime = 1.5f;
+        //public bool isCanCreateBullet = false;
+        //private float waitTime = 1.5f;
 
-        private float bulletWaitTime = 0.8f;
+        //private float bulletWaitTime = 0.8f;
 
-        void Update()
-        {
-            if (!isCanCreateBullet)return;
-            if (waitTime > 0)
-            {
-                waitTime -= Time.deltaTime;
-            }
-            else
-            {
-                transform.LookAt(ArrowPlayer.transform);
+        //void Update()
+        //{
+        //    if (!isCanCreateBullet)return;
+        //    if (waitTime > 0)
+        //    {
+        //        waitTime -= Time.deltaTime;
+        //    }
+        //    else
+        //    {
+        //        transform.LookAt(ArrowPlayer.transform);
 
-                if (bulletWaitTime > 0)
-                {
-                    bulletWaitTime -= Time.deltaTime;
-                }
-                else
-                {
-                    waitTime = 1.5f;
-                    bulletWaitTime = 0.8f;
-                    //发射弓箭
-                    //BulletManager.CreateBullet(this.transform.position, ArrowPlayerAsset.transform.position, 0, CampType.Enemy);
-                }
-            }
-        }
+        //        if (bulletWaitTime > 0)
+        //        {
+        //            bulletWaitTime -= Time.deltaTime;
+        //        }
+        //        else
+        //        {
+        //            waitTime = 1.5f;
+        //            bulletWaitTime = 0.8f;
+        //            //发射弓箭
+        //            //BulletManager.CreateBullet(this.transform.position, ArrowPlayerAsset.transform.position, 0, CampType.Enemy);
+        //        }
+        //    }
+        //}
 
-        //子弹碰撞到碰撞体消失
-        private void OnTriggerEnter(Collider other)
-        {
-            //if (other)
-            //    Debug.Log(other.name + other.gameObject.layer);
+        ////子弹碰撞到碰撞体消失
+        //private void OnTriggerEnter(Collider other)
+        //{
+        //    //if (other)
+        //    //    Debug.Log(other.name + other.gameObject.layer);
 
-            var bullet = other.GetComponent<Bullet>();
-            if (bullet && bullet.BulletData.CameType != CampType.Enemy)
-            {
-                BulletManager.RecycleBullet(bullet);
-                //扣血
-                m_HpBarItem.Init(this,1000f,(MaxHp-20));
-                MaxHp -= 20;
-                if (MaxHp <= 0)
-                {
-                    gameObject.SetActive(false);
-                }
-            }
-        }
+        //    var bullet = other.GetComponent<Bullet>();
+        //    if (bullet && bullet.BulletData.CameType != CampType.Enemy)
+        //    {
+        //        BulletManager.RecycleBullet(bullet);
+        //        //扣血
+        //        m_HpBarItem.Init(this,1000f,(MaxHp-20));
+        //        MaxHp -= 20;
+        //        if (MaxHp <= 0)
+        //        {
+        //            gameObject.SetActive(false);
+        //        }
+        //    }
+        //}
 
     }
 }

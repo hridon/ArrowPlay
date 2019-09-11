@@ -5,7 +5,7 @@ using UnityEngine;
 namespace ArrowPlay
 {
     [Serializable]
-    public class WeaponData : EntityData
+    public class WeaponData
     {
         [SerializeField]
         private WeaponType m_WeaponType = WeaponType.Unknown;
@@ -20,11 +20,10 @@ namespace ArrowPlay
 
         [SerializeField] private int m_DefaultBuff=0;
 
-        public WeaponData(int entityId, int typeId)
-            : base(entityId, typeId)
+        public WeaponData( int typeId)
         {
             IDataTable<DRWeapon> dtWeapon = GameEntry.DataTable.GetDataTable<DRWeapon>();
-            DRWeapon drWeapon = dtWeapon.GetDataRow(TypeId);
+            DRWeapon drWeapon = dtWeapon.GetDataRow(typeId);
 
             if (drWeapon == null)
             {
