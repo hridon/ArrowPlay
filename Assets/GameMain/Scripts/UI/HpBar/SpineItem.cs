@@ -105,6 +105,18 @@ namespace ArrowPlay
             m_SkeletonAnimation.AnimationName = animType.ToString();
         }
 
+        public float GetAnimTime(string animName,float speed)
+        {
+            Spine.Animation animationToUse = m_SkeletonAnimation.skeleton.Data.FindAnimation(animName);
+
+            if (animationToUse != null)
+            {
+                return animationToUse.duration/speed;
+            }
+
+            return 0f;
+        }
+
     }
 }
 

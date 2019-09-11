@@ -1,4 +1,6 @@
-﻿using ArrowPlay;
+﻿using System.Collections;
+using System.Runtime.CompilerServices;
+using ArrowPlay;
 using UnityEngine;
 
 namespace BehaviorDesigner.Runtime.Tasks.Basic.UnityAnimation
@@ -18,9 +20,14 @@ namespace BehaviorDesigner.Runtime.Tasks.Basic.UnityAnimation
         [Tooltip("The animation Speed")]
         public SharedBool isMonsterSharedBool;
 
+        [Tooltip("The animation Speed")]
+        public SharedBool isWaitAnimFinishBool;
+
         // cache the animation component
         private SpineItem animation;
         private GameObject prevGameObject;
+
+        private float animDureTime = 0f;
 
         public override void OnStart()
         {
@@ -35,6 +42,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Basic.UnityAnimation
                 animation = currentGameObject.GetComponentInChildren<SpineItem>();
                 prevGameObject = currentGameObject;
             }
+
         }
 
         public override TaskStatus OnUpdate()

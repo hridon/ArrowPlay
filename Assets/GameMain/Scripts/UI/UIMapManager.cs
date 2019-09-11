@@ -26,22 +26,17 @@ public class UIMapManager : MonoBehaviour
     /// 地图高度
     /// </summary>
     [SerializeField]
-    private float MapHeight = 1136;
+    private float MapHeight = 2186;
 
     [SerializeField]
-    private float MapWidht = 640;
+    private float MapWidht = 1232;
+
+    [SerializeField] private float SingleGrid = 384f;
 
     [SerializeField]
     private int CenterImageNum = 3;
 
-    [SerializeField]
-    private Image TopImage;
-
-    [SerializeField]
-    private Image CenterImage;
-
-    [SerializeField]
-    private Image DownImage;
+    [SerializeField] private Image MapImage;
 
     [SerializeField]
     private CanvasScaler MapCanvasScaler;
@@ -101,26 +96,12 @@ public class UIMapManager : MonoBehaviour
 
     private void SetUIMap()
     {
-        float ratio = (float) MapWidht / CenterImage.sprite.rect.width;
-        MapCanvasScaler.transform.localScale = Vector3.one * ratio;
-        //设置中间位置宽高 位置
-        CenterImage.rectTransform.sizeDelta = new Vector2(MapWidht, CenterImage.sprite.rect.height * CenterImageNum * MapWidht / CenterImage.sprite.rect.width) / ratio;
-        CenterImage.rectTransform.localPosition = Vector3.zero;
-
-        //顶部
-        TopImage.rectTransform.sizeDelta = new Vector2(MapWidht, TopImage.sprite.rect.height * MapWidht / TopImage.sprite.rect.width) / ratio;
-        TopImage.rectTransform.localPosition = new Vector3(0, (TopImage.rectTransform.sizeDelta.y+CenterImage.rectTransform.sizeDelta.y)/2, 0);
-
-        //底部
-        DownImage.rectTransform.sizeDelta = new Vector2(MapWidht, DownImage.sprite.rect.height * MapWidht / DownImage.sprite.rect.width) / ratio;
-        DownImage.rectTransform.localPosition = new Vector3(0, -(DownImage.rectTransform.sizeDelta.y + CenterImage.rectTransform.sizeDelta.y) / 2, 0);
+        MapImage.rectTransform.sizeDelta = new Vector2(MapWidht, MapHeight + SingleGrid * (CenterImageNum-1));
     }
 
     private void SetMapCameraCanvasScaler()
     {
-        MapCanvasScaler.referenceResolution = new Vector2(MapWidht, (CenterImage.rectTransform.sizeDelta + TopImage.rectTransform.sizeDelta + DownImage.rectTransform.sizeDelta).y);
-
-        MapRectTransform.localPosition = new Vector3(0, -DownImage.rectTransform.localPosition.y-TopImage.rectTransform.localPosition.y, 0);
+        MapCanvasScaler.referenceResolution = new Vector2(MapWidht, MapImage.rectTransform.sizeDelta.y);
     }
 
     private void SetBoxColliders()
@@ -129,27 +110,27 @@ public class UIMapManager : MonoBehaviour
         float scaleChangeNum = MapCanvasScaler.referenceResolution.y / MapHeight;
         //设置地板的长宽 这里直接设定box的长宽
         PlaneBoxCollider.transform.localScale = new Vector3(PLANEWIDHT * scaleChangeNum, 0.001f,
-            PLANEWIDHT * scaleChangeNum * (CenterImage.rectTransform.sizeDelta + TopImage.rectTransform.sizeDelta + DownImage.rectTransform.sizeDelta).y / curMapWidht);
+            PLANEWIDHT * scaleChangeNum * (MapImage.rectTransform.sizeDelta).y / curMapWidht);
 
-        float zScale = CenterImage.rectTransform.sizeDelta.y * PLANEWIDHT / 640f;
+        float zScale = SingleGrid * CenterImageNum * PLANEWIDHT / MapWidht;
         //设置五面墙体的宽高
-        WallBoxColliders[0].transform.localScale = new Vector3(1, 1, zScale);
+        WallBoxColliders[0].transform.localScale = new Vector3(1, 1, zScale+2);
         WallBoxColliders[0].transform.localPosition = new Vector3(PLANEWIDHT/2f, 0, 0);
 
-        WallBoxColliders[1].transform.localScale = new Vector3(1, 1, zScale);
+        WallBoxColliders[1].transform.localScale = new Vector3(1, 1, zScale+2f);
         WallBoxColliders[1].transform.localPosition = new Vector3(-PLANEWIDHT/2f, 0, 0);
 
         WallBoxColliders[2].transform.localScale = new Vector3(1, 1, zScale/2f);
-        WallBoxColliders[2].transform.localPosition = new Vector3(0, 0, zScale/2f);
+        WallBoxColliders[2].transform.localPosition = new Vector3(0, 0, zScale/2f+1f);
 
         WallBoxColliders[3].transform.localScale = new Vector3(1, 1, zScale/2f);
-        WallBoxColliders[3].transform.localPosition = new Vector3(0, 0, zScale / 2f);
+        WallBoxColliders[3].transform.localPosition = new Vector3(0, 0, zScale / 2f+1f);
 
         WallBoxColliders[4].transform.localScale = new Vector3(1, 1, zScale);
-        WallBoxColliders[4].transform.localPosition = new Vector3(0, 0, -zScale/2f);
+        WallBoxColliders[4].transform.localPosition = new Vector3(0, 0, -zScale/2f-1f);
 
         //设置门的宽高
-        DoorBoxCollider.transform.localScale = new Vector3(1, 1, 4f);
-        DoorBoxCollider.transform.localPosition = new Vector3(0, 0, zScale / 2f);
+        DoorBoxCollider.transform.localScale = new Vector3(1, 1, 6f);
+        DoorBoxCollider.transform.localPosition = new Vector3(0, 0, zScale / 2f+1f);
     }
 }

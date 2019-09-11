@@ -33,8 +33,8 @@ namespace ArrowPlay
             }
             else
             {
-                UIMapManager.Instance.BulletManager.CreateBullet(ownerEntity, ownerEntity.transform.localPosition,
-                    targetEntity.transform.localPosition, 0.5f, CampType.Enemy);
+                UIMapManager.Instance.BulletManager.CreateBullet(ownerEntity, ownerEntity.transform.position,
+                    targetEntity.transform.position, 0.5f, CampType.Enemy);
             }
         }
     }

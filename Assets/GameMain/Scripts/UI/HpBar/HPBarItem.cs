@@ -10,8 +10,8 @@ namespace ArrowPlay
         [SerializeField]
         private Slider m_HPBar = null;
 
+        [SerializeField]
         private Entity m_Owner = null;
-        private int m_OwnerId = 0;
 
         private Camera m_Camera;
 
@@ -41,8 +41,8 @@ namespace ArrowPlay
 
         void LateUpdate()
         {
-            if (m_Owner != null && m_Owner.gameObject.activeInHierarchy)
-                transform.position = m_Camera.WorldToScreenPoint(m_Owner.transform.position + new Vector3(0, 3f, 0));
+            if (m_Owner != null && m_Owner.gameObject.activeInHierarchy && m_Camera)
+                transform.localPosition = m_Camera.WorldToScreenPoint(m_Owner.transform.localPosition + new Vector3(0, 3f, 0));
         }
     }
 }
