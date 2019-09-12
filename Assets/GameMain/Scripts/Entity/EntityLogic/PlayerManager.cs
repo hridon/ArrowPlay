@@ -18,8 +18,8 @@ namespace ArrowPlay
 
                 arrowPlayer.transform.parent = this.transform;
                 arrowPlayer.gameObject.layer = this.gameObject.layer;
-                arrowPlayer.SetData(new ArrowPlayerData(1, typeId, 10000, 1, 160, 1,200));
-                arrowPlayer.SetWeapon(new WeaponData(2001,CampType.Player,200),new SkillData(1));
+                arrowPlayer.SetData(new ArrowPlayerData(1, typeId, 1000, 1, 160, 1,100));
+                arrowPlayer.SetWeapon(new WeaponData(2001,CampType.Player,100),new SkillData(1));
             }
             arrowPlayer.transform.localPosition = vector3;
             UIMapManager.Instance.CameraFollowCtrl.Self =arrowPlayer.transform;

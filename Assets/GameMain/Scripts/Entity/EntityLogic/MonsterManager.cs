@@ -18,9 +18,10 @@ namespace ArrowPlay
 
             monster.transform.localScale = Vector3.one*scale;
 
-            monster.SetData(new MonsterData(entityId, typeId));
+            var monsterData = new MonsterData(entityId, typeId);
+            monster.SetData(monsterData);
 
-            monster.SetWeapon(new WeaponData(2003,CampType.Enemy,100),new SkillData(1) );
+            monster.SetWeapon(new WeaponData(2003, CampType.Enemy, monsterData.Attack), new SkillData(1));
 
             return monster;
         }

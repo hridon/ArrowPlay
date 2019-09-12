@@ -26,6 +26,7 @@ namespace ArrowPlay
         /// </summary>
         public void Attack(Entity targetEntity,Entity ownerEntity)
         {
+            if (!targetEntity.gameObject.activeInHierarchy || !ownerEntity.gameObject.activeInHierarchy) return;
             //根据当前武器类型获取攻击方式
             if (m_WeaponData.WeaponType == WeaponType.Infighting)
             {

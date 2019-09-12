@@ -33,7 +33,7 @@ namespace ArrowPlay
             float toHPRatio = m_TargetableObjectData.HPRatio;
             if (fromHPRatio > toHPRatio)
             {
-                UIHpBarManager.m_UIHpBarManager.ShowHPBar(this, fromHPRatio,toHPRatio);
+                UIHpBarManager.m_UIHpBarManager.ShowHPBar(this, 1,toHPRatio);
             }
 
             if (m_TargetableObjectData.HP <= 0)

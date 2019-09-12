@@ -163,7 +163,7 @@ namespace ArrowPlay
 
         public override ImpactData GetImpactData()
         {
-            return new ImpactData(m_ArrowPlayerData.Camp, m_ArrowPlayerData.HP, 50, 0);
+            return new ImpactData(m_ArrowPlayerData.Camp, m_ArrowPlayerData.HP, m_ArrowPlayerData.Attack, 0);
         }
     }
 }
