@@ -26,14 +26,14 @@ namespace ArrowPlay
 
         public abstract ImpactData GetImpactData();
 
-        public void ApplyDamage(Entity attacker, int damageHP)
+        public void ApplyDamage(Entity attacker, float damageHP)
         {
             float fromHPRatio = m_TargetableObjectData.HPRatio;
-            m_TargetableObjectData.HP -= damageHP;
+            m_TargetableObjectData.HP -= (int)damageHP;
             float toHPRatio = m_TargetableObjectData.HPRatio;
             if (fromHPRatio > toHPRatio)
             {
-
+                UIHpBarManager.m_UIHpBarManager.ShowHPBar(this, fromHPRatio,toHPRatio);
             }
 
             if (m_TargetableObjectData.HP <= 0)
@@ -55,6 +55,8 @@ namespace ArrowPlay
             {
                 return;
             }
+            //伤害计算
+            AIUtility.PerformCollision(this, entity as Bullet);
         }
     }
 }

@@ -24,6 +24,8 @@ namespace ArrowPlay
 
         [SerializeField] private float m_Speed = 2f;
 
+        [SerializeField] private int damageReduction;
+
         public MonsterData(int entityId, int typeId)
             : base(entityId, typeId, CampType.Enemy)
         {
@@ -40,6 +42,7 @@ namespace ArrowPlay
             m_BaseAttack = drMonsters.BaseAttack;
             m_MaxHP = HP = drMonsters.BaseHP;
             m_Scale = drMonsters.Scale;
+            damageReduction = drMonsters.DamageReduction;
         }
 
         public override int MaxHP
@@ -111,6 +114,14 @@ namespace ArrowPlay
             get
             {
                 return m_IdleAction;
+            }
+        }
+
+        public float DamageReduction
+        {
+            get
+            {
+                return ((float)damageReduction) / 100f;
             }
         }
     }

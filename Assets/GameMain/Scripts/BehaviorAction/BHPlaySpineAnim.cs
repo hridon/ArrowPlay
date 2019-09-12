@@ -43,6 +43,24 @@ namespace BehaviorDesigner.Runtime.Tasks.Basic.UnityAnimation
                 prevGameObject = currentGameObject;
             }
 
+            animDureTime = 0f;
+            if (!isMonsterSharedBool.Value)
+            {
+                animation.SetSpinePlayAnim(JoyNameType.AttackJoy, prevGameObject.transform.localEulerAngles.y, animationSpeed.Value);
+            }
+            else
+            {
+
+                if (string.IsNullOrEmpty(animationName.Value))
+                {
+                    Debug.LogWarning("animationName is null");
+                }
+                else
+                {
+                    animation.SetMonsterAnim(animationName.Value, prevGameObject.transform.localEulerAngles.y, animationLoop.Value, animationSpeed.Value);
+                    animDureTime = animation.GetAnimTime(animationName.Value);
+                }
+            }
         }
 
         public override TaskStatus OnUpdate()
@@ -53,20 +71,12 @@ namespace BehaviorDesigner.Runtime.Tasks.Basic.UnityAnimation
                 return TaskStatus.Failure;
             }
 
-            if (!isMonsterSharedBool.Value)
+            if (isWaitAnimFinishBool.Value)
             {
-                animation.SetSpinePlayAnim(JoyNameType.AttackJoy, prevGameObject.transform.localEulerAngles.y, animationSpeed.Value);
-            }
-            else
-            {
-
-                if (string.IsNullOrEmpty(animationName.Value))
+                if (animDureTime > 0)
                 {
-                    animation.SetMonsterAnim(animationName.Value, prevGameObject.transform.localEulerAngles.y, animationLoop.Value, animationSpeed.Value);
-                }
-                else
-                {
-                    animation.SetMonsterAnim(animationName.Value, prevGameObject.transform.localEulerAngles.y, animationLoop.Value, animationSpeed.Value);
+                    animDureTime -= Time.deltaTime;
+                    return TaskStatus.Running;
                 }
             }
 

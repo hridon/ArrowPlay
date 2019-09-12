@@ -5,14 +5,14 @@
         private readonly CampType m_Camp;
         private readonly int m_HP;
         private readonly int m_Attack;
-        private readonly int m_Defense;
+        private readonly float m_DamageReduction;
 
-        public ImpactData(CampType camp, int hp, int attack, int defense)
+        public ImpactData(CampType camp, int hp, int attack, float damageReduction)
         {
             m_Camp = camp;
             m_HP = hp;
             m_Attack = attack;
-            m_Defense = defense;
+            m_DamageReduction = damageReduction;
         }
 
         public CampType Camp
@@ -39,11 +39,11 @@
             }
         }
 
-        public int Defense
+        public float DamageReduction
         {
             get
             {
-                return m_Defense;
+                return m_DamageReduction;
             }
         }
     }

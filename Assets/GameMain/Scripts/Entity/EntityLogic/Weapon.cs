@@ -34,7 +34,7 @@ namespace ArrowPlay
             else
             {
                 UIMapManager.Instance.BulletManager.CreateBullet(ownerEntity, ownerEntity.transform.position,
-                    targetEntity.transform.position, 0.5f, CampType.Enemy);
+                    targetEntity.transform.position, 0.5f, m_WeaponData.CampType, m_WeaponData.BaseAttack);
             }
         }
     }

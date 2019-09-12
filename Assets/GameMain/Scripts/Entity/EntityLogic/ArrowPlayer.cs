@@ -18,8 +18,6 @@ namespace ArrowPlay
 
         [SerializeField] private JoyNameType m_JoyNameType;
 
-        [SerializeField] private GameObject[] m_Monsters;
-
         [SerializeField]
         private SpineItem m_SpineItem;
         [SerializeField]
@@ -43,6 +41,7 @@ namespace ArrowPlay
 
         protected void OnInit(object userData)
         {
+            isGameSuccess = false;
             m_ArrowPlayerData = userData as ArrowPlayerData;
 
             m_EtcJoystick = FindObjectOfType<ETCJoystick>();
@@ -62,43 +61,44 @@ namespace ArrowPlay
             UIHpBarManager.m_UIHpBarManager.ShowHPBar(this, m_ArrowPlayerData.HP, m_ArrowPlayerData.HPRatio);
         }
 
-
+        public bool isGameSuccess=false;
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
 
-            if (IsDead)
+            if (m_JoyNameType == JoyNameType.AttackJoy||m_JoyNameType==JoyNameType.IdleJoy)
             {
-                //GameEntry.CurEntity.HideEntity(this);
-                this.gameObject.SetActive(false);
+                GetNerMonstar();
+                if (nearMonstar == null)
+                {
+                    m_JoyNameType = JoyNameType.IdleJoy;
+                    m_SpineItem.SetSpinePlayAnim(m_JoyNameType, transform.eulerAngles.y, 0.5f);
+                    isGameSuccess = true;
+                    return;
+                }
+
+                //转向就近敌方单位
+                m_CharacterController.transform.LookAt(nearMonstar.transform.position);
+
+                m_SpineItem.SetSpinePlayAnim(m_JoyNameType, transform.eulerAngles.y,0.5f);
+                //等待一秒发射子弹
+                if (waitTime > 0f)
+                {
+                    waitTime -= Time.deltaTime;
+                }
+                else
+                {
+                    UIMapManager.Instance.BulletManager.CreateBullet(this, m_CharacterController.transform.position,
+                        nearMonstar.transform.position, 0.5f, CampType.Player, m_ArrowPlayerData.Attack);
+
+                    waitTime = 1f;
+                }
             }
-
-            //if (m_JoyNameType == JoyNameType.AttackJoy)
-            //{
-                //GetNerMonstar();
-                //if (nearMonstar == null || !nearMonstar.activeInHierarchy) return;
-                ////转向就近敌方单位
-                //m_CharacterController.transform.LookAt(nearMonstar.transform.position);
-
-                //m_SpineItem.SetSpinePlayAnim(true, transform.eulerAngles.y);
-                ////等待一秒发射子弹
-                //if (waitTime > 0f)
-                //{
-                //    waitTime -= Time.deltaTime;
-                //}
-                //else
-                //{
-                //    //BulletManager.CreateBullet(m_CharacterController.transform.position, nearMonstar.transform.position,
-                //    //    m_CharacterController.center.y,CampType.Player);
-                    
-                //    waitTime = 0.5f;
-                //}
-            //}
-            //else
-            //{
-            //    waitTime = 0.5f;
-            //    m_SpineItem.SetSpinePlayAnim(m_JoyNameType, transform.eulerAngles.y);
-            //}
+            else
+            {
+                waitTime = 1f;
+                m_SpineItem.SetSpinePlayAnim(m_JoyNameType, transform.eulerAngles.y,0.5f);
+            }
         }
 
         protected override void OnHide(object userData)
@@ -114,13 +114,13 @@ namespace ArrowPlay
         void MoveStartEvent()
         {
             m_JoyNameType = JoyNameType.MoveJoy;
-            m_SpineItem.SetSpinePlayAnim(m_JoyNameType, transform.eulerAngles.y);
+            m_SpineItem.SetSpinePlayAnim(m_JoyNameType, transform.eulerAngles.y, 0.5f);
         }
 
         void MoveEndEvent()
         {
             m_JoyNameType = JoyNameType.AttackJoy;
-            m_SpineItem.SetSpinePlayAnim(m_JoyNameType, transform.eulerAngles.y);
+            m_SpineItem.SetSpinePlayAnim(m_JoyNameType, transform.eulerAngles.y, 0.5f);
         }
 
         void MoveEvent(Vector2 vector2)
@@ -128,7 +128,7 @@ namespace ArrowPlay
             m_CharacterController.Move((new Vector3(vector2.x, 0, vector2.y).normalized) * m_ArrowPlayerData .MoveSpeed* Time.deltaTime * 4f);
             m_CharacterController.transform.rotation = Quaternion.LookRotation(new Vector3(vector2.x, 0, vector2.y));
 
-            m_SpineItem.SetSpinePlayAnim(m_JoyNameType, transform.eulerAngles.y);
+            m_SpineItem.SetSpinePlayAnim(m_JoyNameType, transform.eulerAngles.y, 0.5f);
         }
 
         private float waitTime = 0.5f;
@@ -137,13 +137,14 @@ namespace ArrowPlay
         {
             float distance = 1000;//Vector3.Distance(m_Monsters[1].transform.position, this.m_CharacterController.transform.position);
             nearMonstar = null;//m_Monsters[1];
-            foreach (var monstar in m_Monsters)
+            var allMonster = FindObjectsOfType<Monster>();
+            foreach (var monstar in allMonster)
             {
                 float dis = Vector3.Distance(monstar.transform.position, this.m_CharacterController.transform.position);
-                if (distance > dis&&monstar.activeInHierarchy)
+                if (distance > dis && monstar.gameObject.activeInHierarchy && !monstar.IsDead)
                 {
                     distance = dis;
-                    nearMonstar = monstar;
+                    nearMonstar = monstar.gameObject;
                 }
             }
         }
@@ -160,30 +161,9 @@ namespace ArrowPlay
             }
         }
 
-        //子弹碰撞到碰撞体消失
-        private void OnTriggerEnter(Collider other)
-        {
-            //if (other)
-            //    Debug.Log(other.name + other.gameObject.layer);
-
-            var bullet = other.GetComponent<Bullet>();
-            if (bullet&&bullet.BulletData.CameType!=CampType.Player)
-            {
-                BulletManager.RecycleBullet(bullet);
-
-                //扣血
-                UIHpBarManager.m_UIHpBarManager.ShowHPBar(this, 1000f, (m_ArrowPlayerData.HP - 20));
-                m_ArrowPlayerData.HP -= 20;
-                if (m_ArrowPlayerData.HP <= 0)
-                {
-                    gameObject.SetActive(false);
-                }
-            }
-        }
-
         public override ImpactData GetImpactData()
         {
-            return new ImpactData();
+            return new ImpactData(m_ArrowPlayerData.Camp, m_ArrowPlayerData.HP, 50, 0);
         }
     }
 }

@@ -25,6 +25,9 @@ namespace ArrowPlay
         [SerializeField]
         private float m_Speed = 0f;
 
+        [SerializeField]
+        private float m_FlyTime = 0f;
+
         public BulletData(int entityId, int typeId, Entity ownerId, CampType campType, int attack)
             : base(entityId, typeId)
         {
@@ -43,6 +46,7 @@ namespace ArrowPlay
             m_Name = drBullet.Name;
             m_Type = drBullet.Type;
             m_Speed = drBullet.FlySpeed;
+            m_FlyTime = drBullet.FlyTime;
         }
 
         /// <summary>
@@ -64,6 +68,17 @@ namespace ArrowPlay
             get
             {
                 return m_Attack; 
+            }
+        }
+
+        /// <summary>
+        /// 子弹飞行时间
+        /// </summary>
+        public float FlyTime
+        {
+            get
+            {
+                return m_FlyTime;
             }
         }
 

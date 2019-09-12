@@ -6,7 +6,7 @@ namespace ArrowPlay
 {
     public class MonsterManager : MonoBehaviour
     {
-        public Monster CreateMonster(Vector3 vector3, int entityId,int typeId)
+        public Monster CreateMonster(Vector3 vector3,float scale, int entityId,int typeId)
         {
             Monster monster = null;
             var obj = (Resources.Load<GameObject>("Entities/Monster_"+typeId));
@@ -16,9 +16,11 @@ namespace ArrowPlay
             monster.gameObject.layer = this.gameObject.layer;
             monster.transform.localPosition = vector3;
 
+            monster.transform.localScale = Vector3.one*scale;
+
             monster.SetData(new MonsterData(entityId, typeId));
 
-            monster.SetWeapon(new WeaponData(2003),new SkillData(1) );
+            monster.SetWeapon(new WeaponData(2003,CampType.Enemy,100),new SkillData(1) );
 
             return monster;
         }

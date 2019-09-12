@@ -76,7 +76,7 @@ namespace ArrowPlay
                 hpBarItem = Instantiate(m_HPBarItemTemplate);
                 Transform transform = hpBarItem.GetComponent<Transform>();
                 transform.SetParent(m_HPBarRoot);
-                transform.localScale = entity.transform.localScale;
+                transform.localScale =Vector3.one;
                 hpBarItem.gameObject.layer = m_HPBarRoot.gameObject.layer;
             }
             return hpBarItem;

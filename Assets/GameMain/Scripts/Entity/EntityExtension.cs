@@ -21,6 +21,11 @@ namespace ArrowPlay
         // 负值用于本地生成的临时实体（如特效、FakeObject等）
         private static int s_SerialId = 0;
 
+        public static int GenerateSerialId(this EntityComponent entityComponent)
+        {
+            return --s_SerialId;
+        }
+
         //public static CurEntity GetGameEntity(this EntityComponent entityComponent, int entityId)
         //{
         //    UnityGameFramework.Runtime.CurEntity entity = entityComponent.GetEntity(entityId);
@@ -59,10 +64,5 @@ namespace ArrowPlay
         //    entityComponent.ShowEntity(data.Id, typeof(Bullet), AssetUtility.GetEntityAsst("Bullet"), "Bullet"
         //        , Constant.AssetPriority.BulletAsset, data);
         //}
-
-        public static int GenerateSerialId(this EntityComponent entityComponent)
-        {
-            return --s_SerialId;
-        }
     }
 }

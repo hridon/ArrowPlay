@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4020053434769166}
   - component: {fileID: 54637332113027470}
-  - component: {fileID: 136884494894096514}
   - component: {fileID: 195053064157956892}
+  - component: {fileID: 135243039558286274}
   m_Layer: 8
   m_Name: Monster_1005
   m_TagString: Untagged
@@ -157,9 +157,9 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!114 &114300634509101912
 MonoBehaviour:
@@ -203,19 +203,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SkeletonAnimation: {fileID: 114300634509101912}
---- !u!136 &136884494894096514
-CapsuleCollider:
+--- !u!135 &135243039558286274
+SphereCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1152655420024810}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
+  serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Center: {x: 0, y: 0.5, z: -0.36}
 --- !u!195 &195053064157956892
 NavMeshAgent:
   m_ObjectHideFlags: 1

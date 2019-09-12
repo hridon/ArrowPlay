@@ -29,90 +29,17 @@ namespace ArrowPlay
         {
             m_MonsterData = userData as MonsterData;
             //血量设置
-            UIHpBarManager.m_UIHpBarManager.ShowHPBar(this, 1000, 1000);
+            UIHpBarManager.m_UIHpBarManager.ShowHPBar(this, m_MonsterData.MaxHP, m_MonsterData.MaxHP);
             //
             m_Weapon = gameObject.AddComponent<Weapon>();
         }
 
         public override ImpactData GetImpactData()
         {
-            return new ImpactData();
+            return new ImpactData(m_MonsterData.Camp, m_MonsterData.HP, 50, m_MonsterData.DamageReduction);
         }
 
         private ArrowPlayer m_ArrowPlayer;
-
-        ArrowPlayer ArrowPlayer
-        {
-            get
-            {
-                if (m_ArrowPlayer == null)
-                    m_ArrowPlayer = FindObjectOfType<ArrowPlayer>();
-                return m_ArrowPlayer;
-            }
-        }
-
-
-        //private BulletManager m_BulletManager;
-
-        //BulletManager BulletManager
-        //{
-        //    get
-        //    {
-        //        if (m_BulletManager == null)
-        //            m_BulletManager = FindObjectOfType<BulletManager>();
-        //        return m_BulletManager;
-        //    }
-        //}
-
-        //public bool isCanCreateBullet = false;
-        //private float waitTime = 1.5f;
-
-        //private float bulletWaitTime = 0.8f;
-
-        //void Update()
-        //{
-        //    if (!isCanCreateBullet)return;
-        //    if (waitTime > 0)
-        //    {
-        //        waitTime -= Time.deltaTime;
-        //    }
-        //    else
-        //    {
-        //        transform.LookAt(ArrowPlayer.transform);
-
-        //        if (bulletWaitTime > 0)
-        //        {
-        //            bulletWaitTime -= Time.deltaTime;
-        //        }
-        //        else
-        //        {
-        //            waitTime = 1.5f;
-        //            bulletWaitTime = 0.8f;
-        //            //发射弓箭
-        //            //BulletManager.CreateBullet(this.transform.position, ArrowPlayerAsset.transform.position, 0, CampType.Enemy);
-        //        }
-        //    }
-        //}
-
-        ////子弹碰撞到碰撞体消失
-        //private void OnTriggerEnter(Collider other)
-        //{
-        //    //if (other)
-        //    //    Debug.Log(other.name + other.gameObject.layer);
-
-        //    var bullet = other.GetComponent<Bullet>();
-        //    if (bullet && bullet.BulletData.CameType != CampType.Enemy)
-        //    {
-        //        BulletManager.RecycleBullet(bullet);
-        //        //扣血
-        //        m_HpBarItem.Init(this,1000f,(MaxHp-20));
-        //        MaxHp -= 20;
-        //        if (MaxHp <= 0)
-        //        {
-        //            gameObject.SetActive(false);
-        //        }
-        //    }
-        //}
 
     }
 }

@@ -62,11 +62,11 @@ namespace ArrowPlay
             {
                 SetSpinePlayAnim(joyType == JoyNameType.IdleJoy ? SpineAnimType.side_idle : (joyType == JoyNameType.AttackJoy ? SpineAnimType.side_attack : SpineAnimType.side_move));
             }
-            else if (angular>135f&&angular<=225f)
+            else if ((angular > 135f && angular <= 180f) || (angular > -180f && angular<=-135))
             {
                 SetSpinePlayAnim(joyType == JoyNameType.IdleJoy ? SpineAnimType.front_idle : (joyType == JoyNameType.AttackJoy ? SpineAnimType.front_attack : SpineAnimType.front_move));
             }
-            else if (angular>225f&&angular<=315f)
+            else if (angular>-135f&&angular<=-45f)
             {
                 m_IsRotation = true;
                 SetSpinePlayAnim(joyType == JoyNameType.IdleJoy ? SpineAnimType.side_idle : (joyType == JoyNameType.AttackJoy ? SpineAnimType.side_attack : SpineAnimType.side_move));
@@ -105,13 +105,13 @@ namespace ArrowPlay
             m_SkeletonAnimation.AnimationName = animType.ToString();
         }
 
-        public float GetAnimTime(string animName,float speed)
+        public float GetAnimTime(string animName)
         {
             Spine.Animation animationToUse = m_SkeletonAnimation.skeleton.Data.FindAnimation(animName);
 
             if (animationToUse != null)
             {
-                return animationToUse.duration/speed;
+                return animationToUse.duration / m_SkeletonAnimation.timeScale;
             }
 
             return 0f;

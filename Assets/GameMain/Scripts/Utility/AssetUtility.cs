@@ -7,7 +7,6 @@ namespace ArrowPlay
     {
         public static string GetSceneAsset(string assetName)
         {
-            Log.Debug(assetName);
             return Utility.Text.Format("Assets/GameMain/Scenes/{0}.unity", assetName);
         }
 

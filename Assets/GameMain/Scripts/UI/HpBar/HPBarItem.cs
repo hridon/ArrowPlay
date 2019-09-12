@@ -42,7 +42,7 @@ namespace ArrowPlay
         void LateUpdate()
         {
             if (m_Owner != null && m_Owner.gameObject.activeInHierarchy && m_Camera)
-                transform.localPosition = m_Camera.WorldToScreenPoint(m_Owner.transform.localPosition + new Vector3(0, 3f, 0));
+                transform.position = m_Camera.WorldToScreenPoint(m_Owner.transform.position + new Vector3(0, 2f, 0));
         }
     }
 }
