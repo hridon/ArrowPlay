@@ -123,7 +123,7 @@ namespace ArrowPlay
         }
         public void goback()
         {
-            Debug.Log("返回，DOG");
+            //Debug.Log("返回，DOG");
             Data.GetInstance().setCoin(0);
             GameEntry.UI.GetUIForm(UIFormId.ChoiceMenu).Close(true);
             GameEntry.UI.OpenUIForm(UIFormId.HomeMenu);
@@ -139,10 +139,10 @@ namespace ArrowPlay
             isshowLRLevle();
             Level_Text.text = Data.GetInstance().getcurrentLevelID() + "";
             passLevelUIshow();
-            Debug.Log(LevelData.BattleOrder);
+            //Debug.Log(LevelData.BattleOrder);
             if (ChapterData == null)
             {
-                Debug.Log("小老弟你怎么了");
+                //Debug.Log("小老弟你怎么了");
                 return;
             }
             EnegyBonusNum_text.text = ChapterData.EnegyBonusNum + "";
@@ -179,7 +179,7 @@ namespace ArrowPlay
             //-------解锁下章等游戏场景返回创关成功添加
             if (ChapterData.ChapterOrder == ChapterNum || Data.GetInstance().getcurrentChapterID() + 1 > Data.GetInstance().getmaxPassChapterID())
             {
-                Debug.Log("可用章节结束");
+                //Debug.Log("可用章节结束");
                 return;
             }
             Data.GetInstance().pluscurrentChapterID(1);
@@ -191,7 +191,7 @@ namespace ArrowPlay
         {
             if (ChapterData.ChapterOrder == 1)
             {
-                Debug.Log("章节最初");
+                //Debug.Log("章节最初");
                 return;
             }
             //Debug.Log(ChapterData.ChapterOrder + "章节序号");     
@@ -274,7 +274,7 @@ namespace ArrowPlay
                 Data.GetInstance().datachangeByScene();
                 refreshMaxLevel();
 
-                Debug.Log("章节结束");
+                //Debug.Log("章节结束");
                 test_image.SetActive(false);
                 goback();
                 return;

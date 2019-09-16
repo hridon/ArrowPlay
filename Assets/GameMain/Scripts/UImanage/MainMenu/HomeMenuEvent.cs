@@ -165,7 +165,7 @@ namespace ArrowPlay
         {
             if (SceneData.SceneOrder == 1)
             {
-                Debug.Log("场景开始");
+                //Debug.Log("场景开始");
                 return;
             }
             Data.GetInstance().pluscurrentSceneID(-1);
@@ -180,7 +180,7 @@ namespace ArrowPlay
         {
             if (SceneData.SceneOrder == SceneNum || Data.GetInstance().getcurrentSceneID() + 1 > Data.GetInstance().getmaxSceneID())
             {
-                Debug.Log("可用场景结束");
+                //Debug.Log("可用场景结束");
                 return;
             }
 

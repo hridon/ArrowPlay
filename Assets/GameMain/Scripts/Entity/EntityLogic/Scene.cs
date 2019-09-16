@@ -22,30 +22,30 @@ namespace ArrowPlay
             _SceneData = sceneData;
         }
 
-#if UNITY_2017_3_OR_NEWER
-        protected override void OnInit(object userData)
-#else
-        protected internal override void OnInit(object userData)
-#endif
-        {
-            base.OnInit(userData);
-        }
+//#if UNITY_2017_3_OR_NEWER
+//        protected override void OnInit(object userData)
+//#else
+//        protected internal override void OnInit(object userData)
+//#endif
+//        {
+//            base.OnInit(userData);
+//        }
 
-#if UNITY_2017_3_OR_NEWER
-        protected override void OnShow(object userData)
-#else
-        protected internal override void OnShow(object userData)
-#endif
-        {
-            base.OnShow(userData);
+//#if UNITY_2017_3_OR_NEWER
+//        protected override void OnShow(object userData)
+//#else
+//        protected internal override void OnShow(object userData)
+//#endif
+//        {
+//            base.OnShow(userData);
 
-            _SceneData = userData as SceneData;
-            if (_SceneData == null)
-            {
-                Log.Error("Bullet data is invalid.");
-                return;
-            }
-        }
+//            _SceneData = userData as SceneData;
+//            if (_SceneData == null)
+//            {
+//                Log.Error("Bullet data is invalid.");
+//                return;
+//            }
+//        }
 
 
 
