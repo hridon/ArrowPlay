@@ -21,6 +21,7 @@ namespace ArrowPlay
             "Battle",
             "Weapon",
             "SkillDrop",
+            "Skill",
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();
