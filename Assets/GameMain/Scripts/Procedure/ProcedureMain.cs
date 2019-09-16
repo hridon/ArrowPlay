@@ -29,9 +29,9 @@ namespace ArrowPlay
             base.OnUpdate(procedureOwner,elapseSeconds ,realElapseSeconds);
 
             if (m_CurrentGame!=null&&!m_CurrentGame.IsGameOver)
-            {
+            { 
                 m_CurrentGame.Update(elapseSeconds, realElapseSeconds);
-               return;
+                return;
             }
 
             m_GotoMenuDelaySeconds += elapseSeconds;
@@ -45,6 +45,7 @@ namespace ArrowPlay
 
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
+            m_GotoMenuDelaySeconds = 0f;
             if (m_CurrentGame != null)
             {
                 m_CurrentGame.OnLeave();

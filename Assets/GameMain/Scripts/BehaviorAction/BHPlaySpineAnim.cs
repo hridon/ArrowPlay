@@ -1,11 +1,13 @@
-﻿using ArrowPlay;
+﻿using System.Collections;
+using System.Runtime.CompilerServices;
+using ArrowPlay;
 using UnityEngine;
 
 namespace BehaviorDesigner.Runtime.Tasks.Basic.UnityAnimation
 {
-    [TaskCategory("Self/BHPlaySpineMonsterAnim")]
+    [TaskCategory("Self/BHTree")]
     [TaskDescription("Plays animation without any blending. Returns Success.")]
-    public class BHPlaySpineMonsterAnim : Action
+    public class BHPlaySpineAnim : Action
     {
         [Tooltip("The GameObject that the task operates on. If null the task GameObject is used.")]
         public SharedGameObject targetGameObject;
@@ -15,10 +17,17 @@ namespace BehaviorDesigner.Runtime.Tasks.Basic.UnityAnimation
         public SharedBool animationLoop;
         [Tooltip("The animation Speed")]
         public SharedFloat animationSpeed;
+        [Tooltip("The animation Speed")]
+        public SharedBool isMonsterSharedBool;
+
+        [Tooltip("The animation Speed")]
+        public SharedBool isWaitAnimFinishBool;
 
         // cache the animation component
         private SpineItem animation;
         private GameObject prevGameObject;
+
+        private float animDureTime = 0f;
 
         public override void OnStart()
         {
@@ -33,6 +42,25 @@ namespace BehaviorDesigner.Runtime.Tasks.Basic.UnityAnimation
                 animation = currentGameObject.GetComponentInChildren<SpineItem>();
                 prevGameObject = currentGameObject;
             }
+
+            animDureTime = 0f;
+            if (!isMonsterSharedBool.Value)
+            {
+                animation.SetSpinePlayAnim(JoyNameType.AttackJoy, prevGameObject.transform.localEulerAngles.y, animationSpeed.Value);
+            }
+            else
+            {
+
+                if (string.IsNullOrEmpty(animationName.Value))
+                {
+                    Debug.LogWarning("animationName is null");
+                }
+                else
+                {
+                    animation.SetMonsterAnim(animationName.Value, prevGameObject.transform.localEulerAngles.y, animationLoop.Value, animationSpeed.Value);
+                    animDureTime = animation.GetAnimTime(animationName.Value);
+                }
+            }
         }
 
         public override TaskStatus OnUpdate()
@@ -43,13 +71,13 @@ namespace BehaviorDesigner.Runtime.Tasks.Basic.UnityAnimation
                 return TaskStatus.Failure;
             }
 
-            if (string.IsNullOrEmpty(animationName.Value))
+            if (isWaitAnimFinishBool.Value)
             {
-                animation.SetMonsterAnim(animationName.Value, prevGameObject.transform.localEulerAngles.y, animationLoop.Value, animationSpeed.Value);
-            }
-            else
-            {
-                animation.SetMonsterAnim(animationName.Value, prevGameObject.transform.localEulerAngles.y, animationLoop.Value, animationSpeed.Value);
+                if (animDureTime > 0)
+                {
+                    animDureTime -= Time.deltaTime;
+                    return TaskStatus.Running;
+                }
             }
 
             return TaskStatus.Success;

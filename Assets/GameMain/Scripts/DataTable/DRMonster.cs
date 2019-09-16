@@ -5,7 +5,7 @@
 // Feedback: mailto:jiangyin@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2019-09-16 10:28:19.788
+// 生成时间：2019-09-12 12:00:27.473
 //------------------------------------------------------------
 
 using GameFramework;
@@ -118,6 +118,15 @@ namespace ArrowPlay
         }
 
         /// <summary>
+        /// 获取伤害减免。
+        /// </summary>
+        public int DamageReduction
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// 获取显示比例。
         /// </summary>
         public float Scale
@@ -156,6 +165,7 @@ namespace ArrowPlay
             WeaponID = int.Parse(columnTexts[index++]);
             BaseAttack = int.Parse(columnTexts[index++]);
             BaseHP = int.Parse(columnTexts[index++]);
+            DamageReduction = int.Parse(columnTexts[index++]);
             Scale = float.Parse(columnTexts[index++]);
             DefaultBuff = int.Parse(columnTexts[index++]);
 
@@ -180,6 +190,7 @@ namespace ArrowPlay
                     WeaponID = binaryReader.ReadInt32();
                     BaseAttack = binaryReader.ReadInt32();
                     BaseHP = binaryReader.ReadInt32();
+                    DamageReduction = binaryReader.ReadInt32();
                     Scale = binaryReader.ReadSingle();
                     DefaultBuff = binaryReader.ReadInt32();
                 }

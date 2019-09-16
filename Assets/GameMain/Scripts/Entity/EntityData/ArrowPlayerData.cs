@@ -16,14 +16,17 @@ namespace ArrowPlay
 
         [SerializeField] private float m_MoveSpeed;
 
+        [SerializeField] private int m_Attack;
 
-        public ArrowPlayerData(int entityId, int typeId, int maxHp, float attackSpeed, float angularSpeed, float moveSpeed, int weaponId, List<int> skillDataIds)
-            : base(entityId, typeId, CampType.Player, weaponId, skillDataIds)
+
+        public ArrowPlayerData(int entityId, int typeId, int maxHp, float attackSpeed, float angularSpeed, float moveSpeed,int attack)
+            : base(entityId, typeId, CampType.Player)
         {
             HP = m_MaxHP = maxHp;
             m_AttackSpeed = attackSpeed;
             m_AngularSpeed = angularSpeed;
             m_MoveSpeed = moveSpeed;
+            m_Attack = attack;
         }
 
         /// <summary>
@@ -68,6 +71,11 @@ namespace ArrowPlay
             {
                 return m_MoveSpeed;
             }
+        }
+
+        public int Attack
+        {
+            get { return m_Attack; }
         }
     }
 }

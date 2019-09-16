@@ -77,6 +77,12 @@ namespace ArrowPlay
             GameEntry.DataTable.LoadDataTable(dataTableName, LoadType.Bytes, this);
         }
 
+        private void LoadXml(string xmlName)
+        {
+            m_LoadedFlag.Add(Utility.Text.Format("Xml.{0}", xmlName), false);
+            GameEntry.Localization.LoadDictionary(xmlName, AssetUtility.GetXmlAsset(xmlName), LoadType.Text, this);
+        }
+
         private void OnLoadDataTableSuccess(object sender, GameEventArgs e)
         {
             LoadDataTableSuccessEventArgs ne = (LoadDataTableSuccessEventArgs)e;
@@ -86,7 +92,6 @@ namespace ArrowPlay
             }
 
             m_LoadedFlag[Utility.Text.Format("DataTable.{0}", ne.DataTableName)] = true;
-            Log.Info("Load data table '{0}' OK.", ne.DataTableName);
         }
 
         private void OnLoadDataTableFailure(object sender, GameEventArgs e)
@@ -96,8 +101,6 @@ namespace ArrowPlay
             {
                 return;
             }
-
-            Log.Error("Can not load data table '{0}' from '{1}' with error message '{2}'.", ne.DataTableName, ne.DataTableAssetName, ne.ErrorMessage);
         }
     }
 }

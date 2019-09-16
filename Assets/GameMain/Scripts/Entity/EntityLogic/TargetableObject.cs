@@ -19,16 +19,21 @@ namespace ArrowPlay
             }
         }
 
+        public virtual void SetData(object userData)
+        {
+            m_TargetableObjectData = userData as TargetableObjectData;
+        }
+
         public abstract ImpactData GetImpactData();
 
-        public void ApplyDamage(Entity attacker, int damageHP)
+        public void ApplyDamage(Entity attacker, float damageHP)
         {
             float fromHPRatio = m_TargetableObjectData.HPRatio;
-            m_TargetableObjectData.HP -= damageHP;
+            m_TargetableObjectData.HP -= (int)damageHP;
             float toHPRatio = m_TargetableObjectData.HPRatio;
             if (fromHPRatio > toHPRatio)
             {
-
+                UIHpBarManager.m_UIHpBarManager.ShowHPBar(this, 1,toHPRatio);
             }
 
             if (m_TargetableObjectData.HP <= 0)
@@ -37,34 +42,9 @@ namespace ArrowPlay
             }
         }
 
-#if UNITY_2017_3_OR_NEWER
-        protected override void OnInit(object userData)
-#else
-        protected internal override void OnInit(object userData)
-#endif
-        {
-            base.OnInit(userData);
-        }
-
-#if UNITY_2017_3_OR_NEWER
-        protected override void OnShow(object userData)
-#else
-        protected internal override void OnShow(object userData)
-#endif
-        {
-            base.OnShow(userData);
-
-            m_TargetableObjectData = userData as TargetableObjectData;
-            if (m_TargetableObjectData == null)
-            {
-                Log.Error("Targetable object data is invalid.");
-                return;
-            }
-        }
-
         protected virtual void OnDead(Entity attacker)
         {
-            GameEntry.Entity.HideEntity(this);
+            this.gameObject.SetActive(false);
             UIHpBarManager.m_UIHpBarManager.OnClearnHPBar(this);
         }
 
@@ -75,12 +55,8 @@ namespace ArrowPlay
             {
                 return;
             }
-
-            if (entity is TargetableObject && entity.Id >= Id)
-            {
-                // 碰撞事件由 Id 小的一方处理，避免重复处理
-                return;
-            }
+            //伤害计算
+            AIUtility.PerformCollision(this, entity as Bullet);
         }
     }
 }

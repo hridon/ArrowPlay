@@ -7,66 +7,36 @@ namespace ArrowPlay
     /// <summary>
     /// 武器类。
     /// </summary>
-    public class Weapon : Entity
+    public class Weapon :  MonoBehaviour
     {
-        private const string AttachPoint = "Weapon Point";
-
         [SerializeField]
         private WeaponData m_WeaponData = null;
 
-        private float m_NextAttackTime = 0f;
+        [SerializeField]
+        private SkillData m_SkillData = null;
 
-#if UNITY_2017_3_OR_NEWER
-        protected override void OnInit(object userData)
-#else
-        protected internal override void OnInit(object userData)
-#endif
+        public void SetData(WeaponData weaponData,SkillData skillData)
         {
-            base.OnInit(userData);
+            m_WeaponData = weaponData;
+            m_SkillData = skillData;
         }
 
-#if UNITY_2017_3_OR_NEWER
-        protected override void OnShow(object userData)
-#else
-        protected internal override void OnShow(object userData)
-#endif
+        /// <summary>
+        /// 攻击
+        /// </summary>
+        public void Attack(Entity targetEntity,Entity ownerEntity)
         {
-            base.OnShow(userData);
-
-            m_WeaponData = userData as WeaponData;
-            if (m_WeaponData == null)
+            if (!targetEntity.gameObject.activeInHierarchy || !ownerEntity.gameObject.activeInHierarchy) return;
+            //根据当前武器类型获取攻击方式
+            if (m_WeaponData.WeaponType == WeaponType.Infighting)
             {
-                Log.Error("Weapon data is invalid.");
-                return;
+
             }
-
-           //ameEntry.Entity.AttachEntity(Entity, m_WeaponData.OwnerId, AttachPoint);
-        }
-
-#if UNITY_2017_3_OR_NEWER
-        protected override void OnAttachTo(EntityLogic parentEntity, Transform parentTransform, object userData)
-#else
-        protected internal override void OnAttachTo(EntityLogic parentEntity, Transform parentTransform, object userData)
-#endif
-        {
-            base.OnAttachTo(parentEntity, parentTransform, userData);
-
-            Name = Utility.Text.Format("Weapon of {0}", parentEntity.Name);
-            CachedTransform.localPosition = Vector3.zero;
-        }
-
-        public void TryAttack()
-        {
-            if (Time.time < m_NextAttackTime)
+            else
             {
-                return;
+                UIMapManager.Instance.BulletManager.CreateBullet(ownerEntity, ownerEntity.transform.position,
+                    targetEntity.transform.position, 0.5f, m_WeaponData.CampType, m_WeaponData.BaseAttack);
             }
-
-            //m_NextAttackTime = Time.time + m_WeaponData.AttackInterval;
-            //GameEntry.Entity.ShowBullet(new BulletData(GameEntry.Entity.GenerateSerialId(), m_WeaponData.BulletId, m_WeaponData.OwnerId, m_WeaponData.OwnerCamp, m_WeaponData.Attack, m_WeaponData.BulletSpeed)
-            //{
-            //    Position = CachedTransform.position,
-            //});
         }
     }
 }

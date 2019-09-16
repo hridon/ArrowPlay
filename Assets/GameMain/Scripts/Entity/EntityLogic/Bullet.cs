@@ -11,64 +11,38 @@ namespace ArrowPlay
         [SerializeField]
         private BulletData m_BulletData = null;
 
+        public bool m_IsCanRebound = false;
+
+        public float aliveTime = 10f;
+
+
         public BulletData BulletData
         {
             get { return m_BulletData; }
         }
 
+        public ImpactData GetImpactData()
+        {
+            return new ImpactData(m_BulletData.CameType, 0, m_BulletData.Attack, 0);
+        }
+
         public void SetBulletData(BulletData bulletData)
         {
-            m_BulletData = bulletData;
+            OnInit(bulletData);
         }
 
-#if UNITY_2017_3_OR_NEWER
-        protected override void OnInit(object userData)
-#else
-        protected internal override void OnInit(object userData)
-#endif
-        {
-            base.OnInit(userData);
-        }
 
-#if UNITY_2017_3_OR_NEWER
-        protected override void OnShow(object userData)
-#else
-        protected internal override void OnShow(object userData)
-#endif
+        protected void OnInit(object userData)
         {
-            base.OnShow(userData);
-
             m_BulletData = userData as BulletData;
-            if (m_BulletData == null)
-            {
-                Log.Error("Bullet data is invalid.");
-                return;
-            }
+            aliveTime = m_BulletData.FlyTime;
         }
 
-#if UNITY_2017_3_OR_NEWER
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
-#else
-        protected internal override void OnUpdate(float elapseSeconds, float realElapseSeconds)
-#endif
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
 
-            CachedTransform.Translate(Vector3.forward * m_BulletData.Speed * elapseSeconds, Space.World);
-        }
-
-        public float aliveTime = 10f;
-
-        void OnEnable()
-        {
-            aliveTime = 10f;
-        }
-
-        public bool IsCanTrigger=false;
-        void Update()
-        {
-            if (!IsCanTrigger) return;
-            if (m_BulletData==null)return;
+            if (m_BulletData == null) return;
 
             if (aliveTime > 0)
             {
@@ -77,7 +51,7 @@ namespace ArrowPlay
             }
             else
             {
-                aliveTime = 10f;
+                aliveTime = m_BulletData.FlyTime;
                 BulletManager.RecycleBullet(this);
             }
         }
@@ -94,13 +68,10 @@ namespace ArrowPlay
             }
         }
 
+        //这里碰撞检测只判断是否撞到墙
         private void OnTriggerEnter(Collider other)
         {
-            if (!IsCanTrigger) return;
-            if (other)
-                Debug.Log(other.name + other.gameObject.layer);
-
-            if (LayerMask.LayerToName( other.gameObject.layer)=="Box")
+            if (LayerMask.LayerToName(other.gameObject.layer) == "Box" || LayerMask.LayerToName(other.gameObject.layer) == "NoView")
             {
                 BulletManager.RecycleBullet(this);
             }

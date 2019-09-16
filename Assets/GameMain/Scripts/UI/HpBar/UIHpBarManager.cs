@@ -23,9 +23,14 @@ namespace ArrowPlay
 
         private List<HPBarItem> m_ActiveHPBarItems = null;
 
+        void Awake()
+        {
+             m_UIHpBarManager = this;
+        }
+
         void Start()
         {
-            m_UIHpBarManager = this;
+            m_ActiveHPBarItems=new List<HPBarItem>();
         }
 
         public void ShowHPBar(Entity entity, float fromHPRatio, float toHPRatio)
@@ -71,7 +76,7 @@ namespace ArrowPlay
                 hpBarItem = Instantiate(m_HPBarItemTemplate);
                 Transform transform = hpBarItem.GetComponent<Transform>();
                 transform.SetParent(m_HPBarRoot);
-                transform.localScale = entity.transform.localScale;
+                transform.localScale =Vector3.one;
                 hpBarItem.gameObject.layer = m_HPBarRoot.gameObject.layer;
             }
             return hpBarItem;

@@ -51,6 +51,11 @@ namespace ArrowPlay
         {
             return "Map";
         }
+
+        public int GetCurLevelId()
+        {
+            return 1;
+        }
     }
 }
 

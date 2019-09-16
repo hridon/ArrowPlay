@@ -21,48 +21,48 @@ namespace ArrowPlay
         // 负值用于本地生成的临时实体（如特效、FakeObject等）
         private static int s_SerialId = 0;
 
-        public static Entity GetGameEntity(this EntityComponent entityComponent, int entityId)
-        {
-            UnityGameFramework.Runtime.Entity entity = entityComponent.GetEntity(entityId);
-            if (entity == null)
-            {
-                return null;
-            }
-
-            return (Entity)entity.Logic;
-        }
-
-        public static void HideEntity(this EntityComponent entityComponent, Entity entity)
-        {
-            entityComponent.HideEntity(entity.Entity);
-        }
-
-        public static void AttachEntity(this EntityComponent entityComponent, Entity entity, int ownerId, string parentTransformPath = null, object userData = null)
-        {
-            entityComponent.AttachEntity(entity.Entity, ownerId, parentTransformPath, userData);
-        }
-
-        public static void ShowArrowPlay(this EntityComponent entityComponent, ArrowPlayerData data)
-        {
-            entityComponent.ShowEntity(data.Id, typeof(ArrowPlayer), AssetUtility.GetEntityAsst("ArrowPlayer"), "ArrowPlayer", 
-                 Constant.AssetPriority.ArrowPlayerAsset, data);
-        }
-
-        public static void ShowMonster(this EntityComponent entityComponent, MonsterData data)
-        {
-            entityComponent.ShowEntity(data.Id, typeof(Monster), AssetUtility.GetEntityAsst("Monster1"),"Monster"
-                , Constant.AssetPriority.MonsterAsset, data);
-        }
-
-        public static void ShowBullet(this EntityComponent entityComponent, BulletData data)
-        {
-            entityComponent.ShowEntity(data.Id, typeof(Bullet), AssetUtility.GetEntityAsst("Bullet"), "Bullet"
-                , Constant.AssetPriority.BulletAsset, data);
-        }
-
         public static int GenerateSerialId(this EntityComponent entityComponent)
         {
             return --s_SerialId;
         }
+
+        //public static CurEntity GetGameEntity(this EntityComponent entityComponent, int entityId)
+        //{
+        //    UnityGameFramework.Runtime.CurEntity entity = entityComponent.GetEntity(entityId);
+        //    if (entity == null)
+        //    {
+        //        return null;
+        //    }
+
+        //    return (CurEntity)entity.Logic;
+        //}
+
+        //public static void HideEntity(this EntityComponent entityComponent, CurEntity entity)
+        //{
+        //    entityComponent.HideEntity(entity.CurEntity);
+        //}
+
+        //public static void AttachEntity(this EntityComponent entityComponent, CurEntity entity, int ownerId, string parentTransformPath = null, object userData = null)
+        //{
+        //    entityComponent.AttachEntity(entity.CurEntity, ownerId, parentTransformPath, userData);
+        //}
+
+        //public static void ShowArrowPlay(this EntityComponent entityComponent, ArrowPlayerData data)
+        //{
+        //    entityComponent.ShowEntity(data.Id, typeof(ArrowPlayer), AssetUtility.GetEntityAsst("ArrowPlayer"), "ArrowPlayer", 
+        //         Constant.AssetPriority.ArrowPlayerAsset, data);
+        //}
+
+        //public static void ShowMonster(this EntityComponent entityComponent, MonsterData data)
+        //{
+        //    entityComponent.ShowEntity(data.Id, typeof(Monster), AssetUtility.GetEntityAsst("Monster1"),"Monster"
+        //        , Constant.AssetPriority.MonsterAsset, data);
+        //}
+
+        //public static void ShowBullet(this EntityComponent entityComponent, BulletData data)
+        //{
+        //    entityComponent.ShowEntity(data.Id, typeof(Bullet), AssetUtility.GetEntityAsst("Bullet"), "Bullet"
+        //        , Constant.AssetPriority.BulletAsset, data);
+        //}
     }
 }

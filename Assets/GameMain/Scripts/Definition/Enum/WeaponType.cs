@@ -11,12 +11,12 @@ namespace ArrowPlay
         /// <summary>
         /// 近战类型
         /// </summary>
-        Infighting,
+        Infighting=1,
 
         /// <summary>
         /// 发射直线子弹类型
         /// </summary>
-        Line,
+        Line=2,
 
         /// <summary>
         /// 发射射线类型
@@ -26,7 +26,7 @@ namespace ArrowPlay
         /// <summary>
         /// 发射抛物线子弹类型
         /// </summary>
-        Parabola,
+        Parabola=3,
 
         /// <summary>
         /// S型子弹类型
