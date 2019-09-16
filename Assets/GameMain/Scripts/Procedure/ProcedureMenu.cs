@@ -8,7 +8,7 @@ namespace ArrowPlay
 {
     public class ProcedureMenu : ProcedureBase
     {
-        private MenuForm m_MenuForm = null;
+        private UGuiForm m_MenuForm = null;
 
         private ProcedureOwner curProcedureFsm;
 
@@ -24,7 +24,7 @@ namespace ArrowPlay
 
             GameEntry.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccess);
 
-            GameEntry.UI.OpenUIForm(UIFormId.MenuForm, this);
+            GameEntry.UI.OpenUIForm(UIFormId.HomeMenu, this);
         }
 
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
@@ -46,6 +46,7 @@ namespace ArrowPlay
 
             if (GameData.Instance().GameState)
             {
+                m_MenuForm = GameEntry.UI.GetUIForm(UIFormId.ChoiceMenu);
                 curProcedureFsm.SetData<VarString>(Constant.ProcedureData.NextSceneId, GameData.Instance().GetMapName());
                 ChangeState<ProcedureChangeScene>(procedureOwner);
             }
@@ -59,7 +60,7 @@ namespace ArrowPlay
                 return;
             }
 
-            m_MenuForm = (MenuForm)ne.UIForm.Logic;
+            m_MenuForm = (HomeMenu)ne.UIForm.Logic;
         }
     }
 }

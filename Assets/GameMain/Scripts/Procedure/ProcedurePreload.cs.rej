@@ -1,0 +1,11 @@
+diff a/Assets/GameMain/Scripts/Procedure/ProcedurePreload.cs b/Assets/GameMain/Scripts/Procedure/ProcedurePreload.cs	(rejected hunks)
+@@ -16,6 +16,9 @@
+             "Monster",
+             "Bullet",
+             "AI",
++            "Chapter",
++            "Scene",
++            "Battle",
+         };
+ 
+         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();

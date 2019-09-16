@@ -15,5 +15,15 @@
         /// 主菜单。
         /// </summary>
         MenuForm = 100,
+
+        /// <summary>
+        /// 主界面
+        /// </summary>
+        HomeMenu = 104,
+
+        /// <summary>
+        /// 章节选择界面
+        /// </summary>
+        ChoiceMenu=105,
     }
 }

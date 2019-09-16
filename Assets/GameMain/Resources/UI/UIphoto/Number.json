@@ -1,0 +1,11 @@
+{"file":"Number.png","frames":{
+"eight":{"x":468,"y":251,"w":210,"h":249,"offX":22,"offY":33,"sourceW":249,"sourceH":302},
+"five":{"x":209,"y":252,"w":193,"h":252,"offX":23,"offY":26,"sourceW":236,"sourceH":325},
+"four":{"x":1,"y":1,"w":237,"h":249,"offX":17,"offY":24,"sourceW":272,"sourceH":325},
+"nine":{"x":683,"y":1,"w":212,"h":248,"offX":21,"offY":36,"sourceW":250,"sourceH":302},
+"one":{"x":680,"y":500,"w":137,"h":244,"offX":42,"offY":39,"sourceW":268,"sourceH":325},
+"seven":{"x":680,"y":251,"w":207,"h":247,"offX":30,"offY":29,"sourceW":248,"sourceH":302},
+"six":{"x":468,"y":1,"w":213,"h":248,"offX":34,"offY":26,"sourceW":268,"sourceH":325},
+"three":{"x":1,"y":499,"w":193,"h":250,"offX":30,"offY":36,"sourceW":261,"sourceH":325},
+"two":{"x":240,"y":1,"w":226,"h":249,"offX":16,"offY":37,"sourceW":262,"sourceH":325},
+"zero":{"x":1,"y":252,"w":206,"h":245,"offX":21,"offY":42,"sourceW":239,"sourceH":302}}}

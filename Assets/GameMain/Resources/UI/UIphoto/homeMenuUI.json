@@ -1,0 +1,14 @@
+{"file":"homeMenuUI.png","frames":{
+"add":{"x":1807,"y":670,"w":54,"h":51,"offX":11,"offY":7,"sourceW":74,"sourceH":66},
+"BG":{"x":1,"y":1,"w":800,"h":1422,"offX":0,"offY":0,"sourceW":800,"sourceH":1422},
+"box":{"x":1860,"y":449,"w":187,"h":219,"offX":0,"offY":16,"sourceW":187,"sourceH":235},
+"coin":{"x":1671,"y":670,"w":79,"h":79,"offX":17,"offY":10,"sourceW":114,"sourceH":99},
+"combat":{"x":1671,"y":449,"w":187,"h":219,"offX":0,"offY":16,"sourceW":187,"sourceH":235},
+"equip":{"x":1482,"y":449,"w":187,"h":219,"offX":0,"offY":16,"sourceW":187,"sourceH":235},
+"leftButton":{"x":1898,"y":206,"w":127,"h":203,"offX":11,"offY":26,"sourceW":145,"sourceH":239},
+"LVloading":{"x":1752,"y":670,"w":53,"h":53,"offX":0,"offY":7,"sourceW":57,"sourceH":68},
+"Map":{"x":1482,"y":228,"w":377,"h":219,"offX":0,"offY":16,"sourceW":377,"sourceH":235},
+"mapSign":{"x":803,"y":1,"w":677,"h":813,"offX":63,"offY":51,"sourceW":796,"sourceH":899},
+"rightButton":{"x":1898,"y":1,"w":127,"h":203,"offX":11,"offY":26,"sourceW":145,"sourceH":239},
+"set":{"x":1482,"y":670,"w":187,"h":219,"offX":0,"offY":16,"sourceW":187,"sourceH":235},
+"startButton":{"x":1482,"y":1,"w":414,"h":225,"offX":0,"offY":26,"sourceW":414,"sourceH":251}}}

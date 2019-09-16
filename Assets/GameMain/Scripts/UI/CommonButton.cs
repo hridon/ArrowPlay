@@ -8,7 +8,7 @@ namespace ArrowPlay
     public class CommonButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
     {
         private const float FadeTime = 0.3f;
-        private const float OnHoverAlpha = 0.7f;
+        private const float OnHoverAlpha = 0.7f; 
         private const float OnClickAlpha = 0.6f;
 
         [NonSerialized]
