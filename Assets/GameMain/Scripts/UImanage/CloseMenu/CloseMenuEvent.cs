@@ -45,11 +45,15 @@ public class CloseMenuEvent : MonoBehaviour
             ExpSlider.value = 0;
         }
     }
+
+
+
     private void test(float exp)
     {
         if (ExpSlider.value < exp)
         {
             ExpSlider.value += 0.005f;
         }
+        
     }
 }
