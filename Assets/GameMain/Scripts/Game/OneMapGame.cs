@@ -54,11 +54,13 @@ namespace ArrowPlay
             if (m_ArrowPlayer != null && m_ArrowPlayer.IsDead)
             {
                 IsGameOver = true;
+                Debug.LogError("Failed");
                 return;
             }
             else if (m_ArrowPlayer != null && m_ArrowPlayer.isGameSuccess)
             {
                 IsGameOver = true;
+                Debug.LogError("Failed");
                 return;
             }
         }
