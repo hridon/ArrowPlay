@@ -9,4 +9,13 @@
     <monster id="1002" scale="1" positionX="0" positionZ="2"></monster>
     <monster id="1002" scale="1" positionX="4" positionZ="3"></monster>
   </level>
+  
+  <level id="6010101" width="11" height="20">
+    <monster id="1001" scale="2"  positionX="2.5" positionZ="0"></monster>
+	<monster id="1001" scale="2"  positionX="0" positionZ="0"></monster>
+	<monster id="1001" scale="2"  positionX="-2.5" positionZ="0"></monster>
+	<monster id="1002" scale="2"  positionX="2.5" positionZ="-10"></monster>
+	<monster id="1002" scale="2"  positionX="0" positionZ="-10"></monster>
+	<monster id="1002" scale="2"  positionX="-2.5" positionZ="-10"></monster>
+  </level>
 </map>

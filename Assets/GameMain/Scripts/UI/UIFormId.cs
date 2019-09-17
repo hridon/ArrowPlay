@@ -25,5 +25,10 @@
         /// 章节选择界面
         /// </summary>
         ChoiceMenu=105,
+
+        /// <summary>
+        /// 技能选择界面
+        /// </summary>
+        SkillMenu=106,
     }
 }
