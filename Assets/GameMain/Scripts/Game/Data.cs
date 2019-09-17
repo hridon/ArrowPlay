@@ -36,7 +36,7 @@ namespace ArrowPlay
         /// <summary>
         /// 玩家关卡最高纪录（在玩/可玩）
         /// </summary>
-        private int maxPassLevelID= 6030301;
+        private int maxPassLevelID= 6040310;
 
 
         public float getCoin()
